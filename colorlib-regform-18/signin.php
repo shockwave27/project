@@ -1,14 +1,6 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "nimbus_island"; // Change to your database name
-
-$conn = new mysqli($host, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Include the connect.php file to access the defined functions
+require_once('../connect.php');
 
 $alertMessages = array(); // Initialize an array to store alert messages
 
@@ -24,26 +16,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
     $insertSignInQuery = "INSERT INTO signin (first_name, last_name, user_name, user_email, user_password)
                           VALUES ('$firstName', '$lastName', '$userName', '$userEmail', '$userPassword')";
 
-    if ($conn->query($insertSignInQuery) === TRUE) {
-        $user_id = $conn->insert_id; // Get the auto-incremented 'user_id'
-        
+    if (insert_data($insertSignInQuery)) {
+        $user_id = get_last_inserted_id(); // Get the auto-incremented 'user_id'
+
         // Insert data into 'login' table with the 'user_id'
         $insertLoginQuery = "INSERT INTO login (user_id, user_name, user_email, user_password)
                              VALUES ('$user_id', '$userName', '$userEmail', '$userPassword')";
-        
-        if ($conn->query($insertLoginQuery) === TRUE) {
+
+        if (insert_data($insertLoginQuery)) {
             $alertMessages[] = "Registration successful!";
         } else {
-            $alertMessages[] = "Error inserting into 'login' table: " . $conn->error;
+            $alertMessages[] = "Error inserting into 'login' table";
         }
     } else {
-        $alertMessages[] = "Error inserting into 'signin' table: " . $conn->error;
+        $alertMessages[] = "Error inserting into 'signin' table";
     }
 }
-
-$conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html>
