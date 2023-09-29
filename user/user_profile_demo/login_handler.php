@@ -29,8 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_name'] = $userData['user_name'];
         $_SESSION['user_email'] = $userData['user_email'];
         
-        // Redirect the user to the profile page
-        header("Location: userprofile.php");
+        header("Location:index.php");
         exit;
     } else {
         echo "Invalid login credentials.";
