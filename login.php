@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -19,9 +21,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $loginResult = $conn->query($checkLoginQuery);
 
     if ($loginResult->num_rows > 0) {
+        // Fetch user data from the database
+        $userData = $loginResult->fetch_assoc();
+
+        
+        // Store user data in session
+        $_SESSION['user_id'] = $userData['user_id'];
+        $_SESSION['user_name'] = $userData['user_name'];
+        $_SESSION['user_email'] = $userData['user_email'];
+        
+        header("Location:user/index.php");
+        
         echo "Login successful!";
         // You can redirect the user to the desired page after successful login
         // For example: header("Location: dashboard.php");
+        exit;  
     } else {
         echo "Invalid login credentials.";
     }
