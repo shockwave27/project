@@ -57,8 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
                     $user_id = mysqli_insert_id($conn); // Get the auto-incremented 'user_id'
 
                     // Insert data into 'login' table with the 'user_id'
-                    $insertLoginQuery = "INSERT INTO login (user_id, user_name, user_email, user_password, user_type)
-                                         VALUES ('$user_id', '$userName', '$userEmail', '$userPassword', '$userType')";
+                    $insertLoginQuery = "INSERT INTO login (user_id, user_name, user_email, user_password, user_type, user_status)
+                    VALUES ('$user_id', '$userName', '$userEmail', '$userPassword', '$userType', 'active')";
+ 
 
                     if (!mysqli_query($conn, $insertLoginQuery)) {
                         $alertMessages[] = "Error inserting into 'login' table";
@@ -93,9 +94,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
         if (!empty($alertMessages)) {
             echo 'alert("' . implode('\n', $alertMessages) . '");';
 
-            echo 'window.location.href = "../../index.html";';
+            echo 'window.location.href = "../../index.php";';
         } else {
-            echo 'window.location.href = "../../index.html";';
+            echo 'window.location.href = "../../index.php";';
         }
         ?>
     </script>

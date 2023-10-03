@@ -238,44 +238,47 @@ body {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
-    // Add your JavaScript code here if needed
-    $(document).ready(function () {
-        // Capture changes and send them to the server
-        $('#saveChangesBtn').click(function () {
-            var updates = {};
+$(document).ready(function () {
+    // Capture changes and send them to the server
+    $('#saveChangesBtn').click(function () {
+        var updates = {};
 
-            // Iterate through each input field with a data-key attribute
-            $('input[data-key]').each(function () {
-                var key = $(this).data('key');
-                var value = $(this).val();
-                updates[key] = value;
-            });
+        // Iterate through each input field with a data-key attribute
+        $('input[data-key]').each(function () {
+            var key = $(this).data('key');
+            var value = $(this).val();
+            updates[key] = value;
+        });
 
-            // Send updates to the server using an AJAX request
-            $.ajax({
-                url: 'update_profile.php', // Replace with your server-side script to handle updates
-                type: 'POST',
-                data: updates,
-                success: function (response) {
-                    if (response === 'success') {
-                        // Update the displayed information with the changes
-                        $('input[data-key]').each(function () {
-                            var key = $(this).data('key');
-                            var value = updates[key];
-                            $(this).val(value);
-                        });
+        // Preview the image path before making the AJAX request
+        console.log('Updated Image Path:', $('#imagePreview').attr('src')); // Add this line
 
-                        alert('Changes saved successfully!');
-                    } else {
-                        alert('Failed to save changes. Please try again.');
-                    }
-                },
-                error: function () {
-                    alert('An error occurred while saving changes. Please try again later.');
+        // Send updates to the server using an AJAX request
+        $.ajax({
+            url: 'update_profile.php',
+            type: 'POST',
+            data: updates,
+            success: function (response) {
+                if (response === 'success') {
+                    // Update the displayed information with the changes
+                    $('input[data-key]').each(function () {
+                        var key = $(this).data('key');
+                        var value = updates[key];
+                        $(this).val(value);
+                    });
+
+                    alert('Changes saved successfully!');
+                } else {
+                    alert('Failed to save changes. Please try again.');
                 }
-            });
+            },
+            error: function () {
+                alert('An error occurred while saving changes. Please try again later.');
+            }
         });
     });
+});
+
 </script>
 
 <!--script for profile pic preview -->

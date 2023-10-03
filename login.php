@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $loginEmail = $_POST['loginEmail'];
     $loginPassword = $_POST['loginPassword'];
 
-    $checkLoginQuery = "SELECT * FROM login WHERE (user_name='$loginUsername' AND user_email='$loginEmail') AND user_password='$loginPassword'";
+    $checkLoginQuery = "SELECT * FROM login WHERE (user_name='$loginUsername' OR user_email='$loginEmail') AND user_password='$loginPassword' AND user_status='active'";
+
     $loginResult = $conn->query($checkLoginQuery);
 
     if ($loginResult->num_rows > 0) {
@@ -37,8 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // For example: header("Location: dashboard.php");
         exit;  
     } else {
-        echo "Invalid login credentials.";
+        echo '<script>alert("Invalid login credentials.");</script>';
+        echo '<script>window.location.href = "index.php";</script>';
     }
+    
 }
 
 $conn->close();

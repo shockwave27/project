@@ -1,3 +1,9 @@
+
+<?php 
+session_start();
+require $_SERVER['DOCUMENT_ROOT'] . '/nimbus_v3/connect.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,7 +281,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/nimbus_v3/admin/index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -390,12 +396,17 @@
 
     - <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="/nimbus_v3/admin/users/userview.php">
+              <i class="bi bi-circle"></i><span>current users</span>
+            </a>
+          </li>
+          <li>
+            <a href="/nimbus_v3/admin/users/suspend_user_view.php">
+              <i class="bi bi-circle"></i><span>suspended users</span>
             </a>
           </li>
           <li>
