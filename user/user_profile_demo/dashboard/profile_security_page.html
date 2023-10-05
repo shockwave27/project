@@ -178,6 +178,41 @@ color:#69707a;
 </div>
 </div>
 </div>
+    <!-- Add a section for the complaint form -->
+    <div class="container-xl px-4 mt-4">
+        <div class="card mb-4">
+            <div class="card-header">Submit a Complaint</div>
+            <div class="card-body">
+                <!-- Complaint form -->
+                <form id="complaintForm">
+                    <div class="mb-3">
+                        <label for="complaintSubject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="complaintSubject" name="complaintSubject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="complaintText" class="form-label">Complaint</label>
+                        <textarea class="form-control" id="complaintText" name="complaintText" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // JavaScript code for handling the complaint form submission
+        $(document).ready(function () {
+            // Handle the form submission
+            $('#complaintForm').submit(function (e) {
+                e.preventDefault(); // Prevent the form from submitting traditionally
+                // You can add your code here to send the complaint data to your server
+                // For this example, we'll just display a confirmation message
+                alert('Complaint submitted successfully!');
+                // Clear the form fields
+                $('#complaintSubject').val('');
+                $('#complaintText').val('');
+            });
+        });
+    </script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">

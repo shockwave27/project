@@ -1,0 +1,22 @@
+/* Add your custom CSS styles here */
+#floating-cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+#selected-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+#selected-items li {
+    margin-bottom: 5px;
+}
+
