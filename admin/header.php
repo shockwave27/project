@@ -514,6 +514,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/nimbus_v3/connect.php';
         </a>
       </li><!-- End Blank Page Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/nimbus_v3/admin/ride/productpage.php">
+          <i class="bi bi-file-earmark"></i>
+          <span>Rides</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
