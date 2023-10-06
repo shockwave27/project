@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+print_r($_FILES);
+die;
 if (!isset($_SESSION['user_id'])) {
     // User is not authenticated, handle accordingly (e.g., redirect to login)
     header('Location: ../login.php');
@@ -9,7 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     // This script should only handle POST requests
-    http_response_code(400); // Bad Request
+    http_response_code(400); // Bad Request'
+    
     echo 'Invalid request method';
     exit;
 }
@@ -51,6 +53,7 @@ if (isset($_FILES['user_pic']) && $_FILES['user_pic']['error'] === UPLOAD_ERR_OK
         $uploadDirectory = '../colorlib-regform-18/uploads/';
         $newFileName =  uniqid() . '-' . $fileExtension;
         $uploadPath = $uploadDirectory . $newFileName;
+        echo '<img src="' . $uploadPath . '" alt="Profile Picture">';
 
         if (!is_dir($uploadDirectory)) {
             mkdir($uploadDirectory, 0777, true);
@@ -67,6 +70,12 @@ if (isset($_FILES['user_pic']) && $_FILES['user_pic']['error'] === UPLOAD_ERR_OK
             if ($conn->query($updateSql) === true) {
                 // Update successful
                 echo 'success';
+                // After the profile picture upload is successful
+if (move_uploaded_file($fileTmpPath, $uploadPath)) {
+   
+    echo '<img src="' . $uploadPath . '" alt="Profile Picture">';
+}
+
             } else {
                 // Update failed
                 http_response_code(500); // Internal Server Error

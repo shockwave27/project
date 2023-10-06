@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "try"; // Change this to your actual database name
+$dbname = "nimbus_island"; // Change this to your actual database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

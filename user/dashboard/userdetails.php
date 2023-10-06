@@ -255,6 +255,9 @@ body {
                 url: 'update_profile.php', // Replace with your server-side script to handle updates
                 type: 'POST',
                 data: updates,
+                cache:false,
+                contentType:false,
+                processData:false,
                 success: function (response) {
                     if (response === 'success') {
                         // Update the displayed information with the changes

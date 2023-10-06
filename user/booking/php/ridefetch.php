@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "try";
+$dbname = "nimbus_island";
 
 // Create a connection to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
