@@ -31,6 +31,6 @@ if ($result->num_rows > 0) {
 } else {
     $categories = []; // If no data is returned, initialize an empty array
 }
-$conn->close();
+
 
 ?>

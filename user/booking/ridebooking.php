@@ -122,8 +122,8 @@
                 <div class="col-lg-4 menu-item">
                     <label>
                         <input type="checkbox" class="product-checkbox" name="selected_products[]" value="<?php echo $product['ride_name']; ?>">
-                        <a href="/nimbus_v3/admin/products/assets/php/<?php echo $product['ride_photo']; ?>" class="glightbox">
-                            <img src="/nimbus_v3/admin/products/assets/php/<?php echo $product['ride_photo']; ?>" class="menu-img img-fluid" alt="">
+                        <a href="/nimbus_v3/admin/ride/assets/php/<?php echo $product['ride_photo']; ?>" class="glightbox">
+                            <img src="/nimbus_v3/admin/ride/assets/php/<?php echo $product['ride_photo']; ?>" class="menu-img img-fluid" alt="">
                         </a>
                     </label>
 

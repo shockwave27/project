@@ -11,29 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (xhr.status === 200) {
                 // Success, you can do something here like showing a success message or refreshing the table
                 console.log(xhr.responseText);
-                <html>
-                <head>
-                <script type="text/javascript" src="swal/jquery.min.js"></script>
-                <script type="text/javascript" src="swal/bootstrap.min.js"></script>
-                <script type="text/javascript" src="swal/sweetalert2@11.js"></script>
-                </head>
-                <body>
-                    </body>
-                </html>
-                // Trigger SweetAlert for success
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Record inserted successfully',
-                    didClose: () => {
-                        // Close the modal after a successful submission
-                        document.getElementById("createProductModal").style.display = "none";
-                        document.body.classList.remove("modal-open");
-                        document.querySelector(".modal-backdrop").remove();
 
-                        // Redirect to the product page
-                        window.location.href = "productpage.php";
-                    }
-                });
+                // Close the modal after a successful submission
+                document.getElementById("createProductModal").style.display = "none";
+                document.body.classList.remove("modal-open");
+                document.querySelector(".modal-backdrop").remove();
             } else {
                 // Error handling
                 console.error(xhr.statusText);
