@@ -80,40 +80,40 @@
         </div>-->
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+    <?php
+    // Create a connection to the database
+    require_once('../../connect.php');
 
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Perform the SQL query to fetch categories from the "ridecategory" table
+    $sql = "SELECT `category_id`, `category_type`, `category_description` FROM `ridecategory`";
+    $result = $conn->query($sql);
+
+    // Check if there are rows returned
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          $categoryId = $row['category_id'];
+          $categoryType = $row['category_type'];
+          ?>
           <li class="nav-item">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-              <h4>Thrill Rides</h4>
-            </a>
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-category-<?php echo $categoryId; ?>"
+                 data-category-type="<?php echo $categoryType; ?>">
+                  <h4><?php echo $categoryType; ?></h4>
+              </a>
           </li><!-- End tab nav item -->
+          <?php
+      }
+  }
+  ?>
+</ul>                
 
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-              <h4>Water Rides</h4>
-            </a><!-- End tab nav item -->
 
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-              <h4>Family Rides</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-              <h4>Kids Rides</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-        </ul>
-
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-
-        <div class="tab-pane fade active show" id="menu-starters">
-    <div class="tab-header text-center">
-        <p>Rides</p>
-        <h3>Thrill Rides</h3>
-    </div>
-
+        
     <form id="checkbox-form">
         <div class="row gy-5">
             <?php include('php/ridefetch.php'); ?>
@@ -578,6 +578,33 @@
   <script src="assets/js/main.js"></script>
   <!--js for object selecting for products -->
   <script src="assets/js/objslct.js"></script>
+  <!--script for ride category election and frtch rides-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    console.log("Clicked on category tab"); // Add this line for debugging
+    // Rest of your code.
+    // Attach a click event handler to category tabs
+    $('.nav-link').click(function () {
+        // Get the selected category type or set a default value
+        var categoryType = $(this).data('category-type') ;
+
+        // Make an AJAX request to fetch rides for the selected category type
+        console.log("Sending data:", { categoryType: categoryType });
+        $.ajax({
+            type: 'POST',
+            url: 'php/ridefetch.php',
+            data: { categoryType: categoryType },
+            success: function (data) {
+                // Replace the existing content of the specific container
+                // In this case, replace the content of <div class="row gy-5">
+                $('.row.gy-5').html(data);
+            }
+        });
+    });
+});
+</script>
+
 
 </body>
 

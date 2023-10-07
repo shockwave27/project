@@ -1,5 +1,10 @@
 <?php
-// Replace these with your database connection details
+// Get the selected category type from the AJAX request
+$categoryType = $_POST['categoryType'];
+echo $categoryType;
+echo 'this is';
+echo"<br>";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,22 +18,31 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Perform the SQL query to fetch data from the "ride" table
-$sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo` FROM `ride`";
+// Perform the SQL query to fetch rides based on the selected category type
+$sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type` FROM `ride` WHERE `ride_type` = '$categoryType'";
 $result = $conn->query($sql);
 
 // Check if there are rows returned
 if ($result->num_rows > 0) {
-    $products = []; // Initialize an empty array to store the products
-
-    // Fetch data and store it in the $products array
     while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
+        // Display the rides as desired
+        // Example: Create HTML elements to display ride information
+        echo '<div class="col-lg-4 menu-item">';
+        echo '<label>';
+        echo '<input type="checkbox" class="product-checkbox" name="selected_products[]" value="' . $row['ride_name'] . '">';
+        echo '<a href="/nimbus_v3/admin/ride/assets/php/' . $row['ride_photo'] . '" class="glightbox">';
+        echo '<img src="/nimbus_v3/admin/ride/assets/php/' . $row['ride_photo'] . '" class="menu-img img-fluid" alt="">';
+        echo '</a>';
+        echo '</label>';
+        echo '<h4>' . $row['ride_name'] . '</h4>';
+        echo '<p class="ingredients">' . $row['ride_details'] . '</p>';
+        echo '<p class="price">$' . number_format($row['ride_price'], 2) . '</p>';
+        echo '</div>';
     }
-
-    // Close the database connection
-    $conn->close();
 } else {
-    $products = []; // If no data is returned, initialize an empty array
+    echo "No rides found for the selected category type.";
 }
+
+// Close the database connection
+$conn->close();
 ?>
