@@ -14,8 +14,10 @@ if ($conn->connect_error) {
 }
 
 // Perform the SQL query to fetch data from the "ride" table
-$sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo` FROM `ride`";
+// Perform the SQL query to fetch data from the "ride" table
+$sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type` FROM `ride` WHERE 1";
 $result = $conn->query($sql);
+
 
 // Check if there are rows returned
 if ($result->num_rows > 0) {

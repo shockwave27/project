@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2023 at 08:20 PM
+-- Generation Time: Oct 07, 2023 at 11:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -97,17 +97,45 @@ CREATE TABLE `ride` (
   `ride_details` text NOT NULL,
   `ride_availability` int(11) NOT NULL,
   `ride_price` int(11) NOT NULL,
-  `ride_photo` varchar(300) NOT NULL
+  `ride_photo` varchar(300) NOT NULL,
+  `ride_type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ride`
 --
 
-INSERT INTO `ride` (`ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`) VALUES
-(19, 'ride1', 'no\r\n', 0, 123, 'uploads/pexels-isabelle-taylor-1376407.jpg'),
-(20, 'ride3', 'ferry wheel', 0, 45, 'uploads/photos-photo(2).jpeg'),
-(21, 'ride4', 'nothing', 0, 456, 'uploads/pexels-inga-seliverstova-3243241.jpg');
+INSERT INTO `ride` (`ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type`) VALUES
+(19, 'ride1', 'no\r\n', 0, 123, 'uploads/pexels-isabelle-taylor-1376407.jpg', ''),
+(20, 'ride3', 'ferry wheel', 0, 45, 'uploads/photos-photo(2).jpeg', ''),
+(21, 'ride4', 'nothing', 0, 456, 'uploads/pexels-inga-seliverstova-3243241.jpg', ''),
+(22, 'ride5', 'new one', 0, 126, 'uploads/pexels-deva-darshan-2695402.jpg', 'Thrill Rides'),
+(23, 'ride6', 'nothing', 0, 98, 'uploads/pexels-brett-sayles-14388572.jpg', 'type1'),
+(24, 'ride9', 'no', 0, 12, 'uploads/pexels-jimmy-chan-2537536.jpg', 'type1'),
+(28, 'ride8', '', 0, 0, 'uploads/', 'ferry wheel'),
+(29, 'ride11', '', 0, 0, 'uploads/', 'ferry wheel'),
+(30, 'ride10', '', 0, 0, 'uploads/', 'ferry wheel'),
+(31, 'ride16', '', 0, 0, 'uploads/', 'ferry wheel');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ridecategory`
+--
+
+CREATE TABLE `ridecategory` (
+  `category_id` int(11) NOT NULL,
+  `category_type` varchar(100) NOT NULL,
+  `category_description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ridecategory`
+--
+
+INSERT INTO `ridecategory` (`category_id`, `category_type`, `category_description`) VALUES
+(1, 'ferry wheel', 'nothing new'),
+(2, 'type1', 'nothing new');
 
 -- --------------------------------------------------------
 
@@ -152,6 +180,16 @@ CREATE TABLE `userridebooking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `userridebooking`
+--
+
+INSERT INTO `userridebooking` (`id`, `user_id`, `selected_rides`, `total_price`, `order_date`) VALUES
+(79, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:30:17'),
+(80, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:30:17'),
+(81, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:40:12'),
+(82, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:40:12');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -178,6 +216,12 @@ ALTER TABLE `login`
 --
 ALTER TABLE `ride`
   ADD PRIMARY KEY (`ride_id`);
+
+--
+-- Indexes for table `ridecategory`
+--
+ALTER TABLE `ridecategory`
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `signin`
@@ -211,7 +255,13 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `ride`
 --
 ALTER TABLE `ride`
-  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `ridecategory`
+--
+ALTER TABLE `ridecategory`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `signin`
@@ -223,7 +273,7 @@ ALTER TABLE `signin`
 -- AUTO_INCREMENT for table `userridebooking`
 --
 ALTER TABLE `userridebooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

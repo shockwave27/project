@@ -139,14 +139,16 @@
             <?php } ?>
         </div>
 
-        <input type="submit" value="Submit">
+        <!--<input type="submit" value="Submit">-->
     </form>
 
-    <div id="floating-cart">
+        <!-- Floating cart for selected items -->
+        <div id="floating-cart">
         <h2>Selected Items</h2>
         <ul id="selected-items">
             <!-- Selected items will appear here -->
         </ul>
+        <button id="confirm-button">Confirm</button>
     </div>
 
     <script src="assets/js/objslct.js"></script>

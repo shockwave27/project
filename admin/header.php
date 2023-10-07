@@ -416,6 +416,28 @@ require $_SERVER['DOCUMENT_ROOT'] . '/nimbus_v3/connect.php';
           </li>
         </ul>
       </li><!-- End Tables Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Ride Management</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/nimbus_v3/admin/ride/rideCategoryPage.php">
+              <i class="bi bi-circle"></i><span>Ride Types</span>
+            </a>
+          </li>
+          <li>
+            <a href="/nimbus_v3/admin/ride/productpage.php">
+              <i class="bi bi-circle"></i><span>Ride Entry/Edit</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Data Tables</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">

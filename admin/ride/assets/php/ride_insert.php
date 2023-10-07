@@ -1,3 +1,11 @@
+<html>
+<head>
+<script type="text/javascript" src="/swal/jquery.min.js"></script>
+<script type="text/javascript" src="/swal/bootstrap.min.js"></script>
+<script type="text/javascript" src="/swal/sweetalert2@11.js"></script>
+</head>
+<body>
+</html>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -18,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ride_name = $_POST['ride_name'];
     $ride_details = $_POST['ride_details'];
     $ride_price = $_POST['ride_price'];
+    $ride_type = $_POST['ride_type']; // Add this line to get ride_type
 
     // Handle image upload (similar to your previous code)
     $target_dir = "uploads/";
@@ -30,17 +39,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare and execute the SQL query
-    $sql = "INSERT INTO ride (ride_name, ride_details, ride_price, ride_photo)
-            VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO ride (ride_name, ride_details, ride_price, ride_photo, ride_type)
+            VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $ride_name, $ride_details, $ride_price, $target_file);
-
+    $stmt->bind_param("sssss", $ride_name, $ride_details, $ride_price, $target_file, $ride_type);
 
     if ($stmt->execute()) {
-        echo "Record inserted successfully";
+        ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                text: 'Record inserted successfully',
+                didClose: () => {
+                    window.location.href = "../../productpage.php";
+                }
+            });
+        </script>
+        <?php
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+    
 }
 
 $conn->close();
