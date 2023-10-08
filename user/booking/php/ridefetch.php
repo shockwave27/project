@@ -1,9 +1,7 @@
+
 <?php
 // Get the selected category type from the AJAX request
-$categoryType = $_POST['categoryType'];
-echo $categoryType;
-echo 'this is';
-echo"<br>";
+$categoryType = isset($_POST['categoryType']) ? $_POST['categoryType'] : '';
 
 $servername = "localhost";
 $username = "root";
@@ -17,6 +15,23 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// If $_POST['categoryType'] is not set or empty, fetch the primary category type
+if (empty($categoryType)) {
+    $sql = "SELECT `category_type` FROM `ridecategory` WHERE `category_priority` = 'primary'";
+    $result = $conn->query($sql);
+
+    // Check if there are rows returned
+    if ($result->num_rows > 0) {
+        // Fetch the primary category type
+        $row = $result->fetch_assoc();
+        $categoryType = $row['category_type'];
+    }
+}
+
+echo $categoryType;
+echo 'this is';
+echo "<br>";
 
 // Perform the SQL query to fetch rides based on the selected category type
 $sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type` FROM `ride` WHERE `ride_type` = '$categoryType'";
