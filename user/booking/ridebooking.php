@@ -143,6 +143,7 @@
     </form>
 
         <!-- Floating cart for selected items -->
+        
         <div id="floating-cart">
         <h2>Selected Items</h2>
         <ul id="selected-items">
@@ -357,6 +358,42 @@ $(document).ready(function () {
     });
 });
 </script>
+
+<!-- ti fetch the continue shop cart-->
+<script>
+    // Function to parse query parameters from the URL
+    function getQueryParameters() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams;
+    }
+
+    // Function to display selected rides in the cart
+    function displaySelectedRidesInCart() {
+      console.log("Displaying selected rides in cart.");
+        const params = getQueryParameters();
+        const selectedRidesJSON = params.get('selectedRides');
+
+        if (selectedRidesJSON) {
+            const selectedRides = JSON.parse(decodeURIComponent(selectedRidesJSON));
+            const cartElement = document.getElementById('selected-items');
+
+            // Clear the cart first
+            cartElement.innerHTML = '';
+
+            // Add selected rides to the cart
+            selectedRides.forEach((rideName) => {
+                const cartItem = document.createElement('li');
+                cartItem.textContent = rideName;
+                cartElement.appendChild(cartItem);
+            });
+        }
+    }
+
+    // Call the function to display selected rides in the cart
+    displaySelectedRidesInCart();
+</script>
+
 
 
 </body>

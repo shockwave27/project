@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Details</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="assets/css/confirmbooking.css" rel="stylesheet">
 </head>
 <body>
     <h1>Ticket Details</h1>
@@ -14,6 +15,9 @@
         <div id="ride-details"></div>
         <p id="total-price">Total Price: </p>
     </div>
+
+    <!-- Continue Shopping Button -->
+    <button id="continue-shopping" onclick="goBackWithSelectedRides()">Continue Shopping</button>
 
     <script>
       // Function to parse query parameters from the URL
@@ -90,7 +94,14 @@ function removeRide(button) {
     const totalPriceElement = document.getElementById('total-price');
     totalPriceElement.textContent = 'Total Price: $' + totalPrice.toFixed(2);
 }
+
+// Function to go back to the previous page
+function goBack() {
+    window.history.back();
+}
+
 displayTicketDetails();
     </script>
+    
 </body>
 </html>
