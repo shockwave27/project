@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -330,71 +333,11 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <!--js for object selecting for products -->
-  <script src="assets/js/objslct.js"></script>
-  <!--script for ride category election and frtch rides-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    console.log("Clicked on category tab"); // Add this line for debugging
-    // Rest of your code.
-    // Attach a click event handler to category tabs
-    $('.nav-link').click(function () {
-        // Get the selected category type or set a default value
-        var categoryType = $(this).data('category-type');
+  <!-- Include jQuery from a CDN (Content Delivery Network) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        // Make an AJAX request to fetch rides for the selected category type
-        console.log("Sending data:", { categoryType: categoryType });
-        $.ajax({
-            type: 'POST',
-            url: 'php/ridefetch.php',
-            data: { categoryType: categoryType },
-            success: function (data) {
-                // Replace the existing content of the specific container
-                // In this case, replace the content of <div class="row gy-5">
-                $('.row.gy-5').html(data);
-            }
-        });
-    });
-});
-</script>
-
-<!-- ti fetch the continue shop cart-->
-<script>
-    // Function to parse query parameters from the URL
-    function getQueryParameters() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        return urlParams;
-    }
-
-    // Function to display selected rides in the cart
-    function displaySelectedRidesInCart() {
-      console.log("Displaying selected rides in cart.");
-        const params = getQueryParameters();
-        const selectedRidesJSON = params.get('selectedRides');
-
-        if (selectedRidesJSON) {
-            const selectedRides = JSON.parse(decodeURIComponent(selectedRidesJSON));
-            const cartElement = document.getElementById('selected-items');
-
-            // Clear the cart first
-            cartElement.innerHTML = '';
-
-            // Add selected rides to the cart
-            selectedRides.forEach((rideName) => {
-                const cartItem = document.createElement('li');
-                cartItem.textContent = rideName;
-                cartElement.appendChild(cartItem);
-            });
-        }
-    }
-
-    // Call the function to display selected rides in the cart
-    displaySelectedRidesInCart();
-</script>
-
-
+<!-- Include your JavaScript file after jQuery -->
+<script src="assets/js/objslct.js"></script>
 
 </body>
 

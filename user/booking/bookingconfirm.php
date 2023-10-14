@@ -1,3 +1,14 @@
+
+<?php
+session_start();
+
+if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
+    echo "Rides in Session: ";
+    echo implode(', ', $_SESSION['selectedRides']);
+} else {
+    echo "No rides in session.";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +28,16 @@
     </div>
 
     <!-- Continue Shopping Button -->
-    <button id="continue-shopping" onclick="goBackWithSelectedRides()">Continue Shopping</button>
+    <button id="continue-shopping" onclick="storeSelectedRidesInSession()">Continue Shopping</button>
+
+    <button id="confirm-ticket" onclick="confirmTicket()">Confirm Ticket</button>
 
     <script>
       // Function to parse query parameters from the URL
+// Define selectedRidesArray in a broader scope
+let selectedRidesArray = [];
+
+// Function to parse query parameters from the URL
 function getQueryParameters() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -32,15 +49,21 @@ let totalPrice = 0;
 
 // Function to fetch ride prices and display ticket details
 function displayTicketDetails() {
-    const params = getQueryParameters();
-    const selectedRides = params.get('selectedRides');
+    const selectedRidesArray = <?php echo json_encode($_SESSION['selectedRides']); ?>;
+    console.log(selectedRidesArray);
+    // const params = getQueryParameters();
+    // const selectedRides = params.get('selectedRides');
 
     const selectedRidesElement = document.getElementById('selected-rides');
     const totalPriceElement = document.getElementById('total-price');
     const rideDetailsElement = document.getElementById('ride-details');
+        // Clear the rideDetailsElement before adding the new details
+         rideDetailsElement.innerHTML = '';
+    // Clear the selectedRidesArray
+    // selectedRidesArray = [];
 
-    // Parse the selectedRides JSON
-    const selectedRidesArray = JSON.parse(decodeURIComponent(selectedRides));
+    // // Parse the selectedRides JSON
+    // selectedRidesArray = JSON.parse(decodeURIComponent(selectedRides)); 
 
     // Create an array to store ride details
     const rideDetails = [];
@@ -65,7 +88,7 @@ function displayTicketDetails() {
                         const rideRow = document.createElement('div');
                         rideRow.className = 'ride-row';
                         rideRow.innerHTML = `
-                            <img src="/nimbus_v3/admin/ride/assets/php/${ride.photo}" alt="?nimbus_v3/admin/ride/assets/php/${ride.name}" width="100">
+                            <img src="/nimbus_v3/admin/ride/assets/php/${ride.photo}" alt="/nimbus_v3/admin/ride/assets/php/${ride.name}" width="100">
                             <span>${ride.name} - $${ride.price.toFixed(2)}</span>
                             <button data-ride-name="${ride.name}" data-ride-price="${ride.price}" onclick="removeRide(this)">Remove</button>
                         `;
@@ -81,11 +104,38 @@ function displayTicketDetails() {
     });
 }
 
+
+function storeSelectedRidesInSession() {
+    const params = getQueryParameters();
+    const selectedRides = params.get('selectedRides');
+
+    // Check if there are selected rides
+    if (selectedRides) {
+        // Assuming you're using jQuery for the AJAX request
+        $.ajax({
+            type: 'POST', // Use POST for more secure data transfer
+            url: 'store_selected_rides_in_session.php', // Replace with the actual URL to process the data on the server
+            data: { selectedRides: selectedRides },
+            success: function (response) {
+                // Handle the server's response, if needed
+                // For example, you could display a success message to the user
+                alert(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle errors, if any
+                console.error(error);
+            }
+        });
+    }
+}
+
 // Function to remove a ride from the list
 function removeRide(button) {
+    console.log("works remove");
     const rideName = button.getAttribute('data-ride-name');
+    console.log(rideName);
     const ridePrice = parseFloat(button.getAttribute('data-ride-price'));
-
+     
     const rideRow = button.parentElement;
     rideRow.remove();
 
@@ -93,7 +143,50 @@ function removeRide(button) {
     totalPrice -= ridePrice;
     const totalPriceElement = document.getElementById('total-price');
     totalPriceElement.textContent = 'Total Price: $' + totalPrice.toFixed(2);
+    const selectedRidesArray = <?php echo json_encode($_SESSION['selectedRides']); ?>;
+      console.log(selectedRidesArray);
+    // Check if the ride is in the session before making an AJAX request
+    if (selectedRidesArray.includes(rideName)) {
+        // Remove the ride from the selectedRidesArray (already done in displayTicketDetails)
+        console.log(rideName);
+        // Make an AJAX request to remove the ride from the session
+        $.ajax({
+            type: 'POST',
+            url: 'remove_ride_from_session.php', // Create this PHP script to remove the ride from the session
+            data: { rideName: rideName },
+            success: function (response) {
+                // Handle the server's response
+                alert(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle errors, if any
+                console.error(error);
+            }
+        });
+    }
 }
+
+function confirmTicket() {
+    // Assuming you want to confirm the ticket and process it on the server
+    // You can make an AJAX request to a PHP script to handle the confirmation
+
+    // Replace 'confirm_ticket.php' with the actual URL to process the ticket confirmation
+    $.ajax({
+        type: 'POST', // Use POST for more secure data transfer
+        url: 'confirm_ticket.php',
+        data: { selectedRides: selectedRidesArray }, // Send selected rides data
+        success: function (response) {
+            // Handle the server's response, if needed
+            // For example, you could display a confirmation message to the user
+            alert(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors, if any
+            console.error(error);
+        }
+    });
+}
+
 
 // Function to go back to the previous page
 function goBack() {
@@ -101,6 +194,8 @@ function goBack() {
 }
 
 displayTicketDetails();
+</script>
+
     </script>
     
 </body>
