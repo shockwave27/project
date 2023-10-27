@@ -29,9 +29,6 @@ if (empty($categoryType)) {
     }
 }
 
-echo $categoryType;
-echo 'this is';
-echo "<br>";
 
 // Perform the SQL query to fetch rides based on the selected category type
 $sql = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type` FROM `ride` WHERE `ride_type` = '$categoryType'";

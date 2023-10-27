@@ -1,9 +1,11 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+    
     const form = document.getElementById('checkbox-form');
     const floatingCart = document.getElementById('floating-cart');
     const selectedItems = document.getElementById('selected-items');
     const confirmButton = document.getElementById('confirm-button'); // Define confirmButton here
-
+    // loadSelectedRides(form);
     let selectedRides = new Set();
     let totalPrice = 0;
     let confirmationSent = false; // Initialize confirmationSent variable
@@ -33,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             confirmButton.style.display = 'block';
         } else {
-            floatingCart.style.display = 'none';
-            confirmButton.style.display = 'none';
+            // floatingCart.style.display = 'none';         ///removed the confirm button working rememeber imp//
+            // confirmButton.style.display = 'none';
         }
     });
     confirmButton.addEventListener('click', function () {
@@ -77,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // For example, you could display a success message to the user
                         alert(response);
                         console.log(response);
+                        location.reload(); // This line reloads the page
                     },
                     error: function (xhr, status, error) {
                         // Handle errors, if any
@@ -90,28 +93,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Function to create a cart item with a remove button
-    function createCartItem(itemName) {
-        const listItem = document.createElement('li');
-        listItem.textContent = itemName;
-        listItem.id = "ride_id";
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.addEventListener('click', function () {
-            // Remove the ride when the Remove button is clicked
-            selectedRides.delete(itemName);
-            listItem.remove();
+    // function createCartItem(itemName) {
+    //     const listItem = document.createElement('li');
+    //     listItem.textContent = itemName;
+    //     listItem.id = "ride_id";
+    //     const removeButton = document.createElement('button');
+    //     removeButton.textContent = 'Remove';
+    //     removeButton.addEventListener('click', function () {
+    //         // Remove the ride when the Remove button is clicked
+    //         selectedRides.delete(itemName);
+    //         listItem.remove();
 
-            // Uncheck the corresponding checkbox
-            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.value === itemName) {
-                    checkbox.checked = false;
-                }
-            });
-        });
-        listItem.appendChild(removeButton);
-        return listItem;
-    }
+    //         // Uncheck the corresponding checkbox
+    //         const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    //         checkboxes.forEach(function (checkbox) {
+    //             if (checkbox.value === itemName) {
+    //                 checkbox.checked = false;
+    //             }
+    //         });
+    //     });
+    //     listItem.appendChild(removeButton);
+    //     return listItem;
+    // }
 
     // Merge this part here...
 });
@@ -123,10 +126,15 @@ $(document).ready(function () {
     console.log("Clicked on category tab"); // Add this line for debugging
     // Rest of your code...
        // Attach a click event handler to category tabs
+       var categoryType = $(this).data('category-type');
+       const form = document.getElementById('checkbox-form');
+    
+       loadSelectedRides(form);
     $('.nav-link').click(function () {
         // Get the selected category type or set a default value
         var categoryType = $(this).data('category-type');
-
+        const form = document.getElementById('checkbox-form');
+     
         // Make an AJAX request to fetch rides for the selected category type
         console.log("Sending data:", { categoryType: categoryType });
         $.ajax({
@@ -137,6 +145,8 @@ $(document).ready(function () {
                 // Replace the existing content of the specific container
                 // In this case, replace the content of <div class="row gy-5">
                 $('.row.gy-5').html(data);
+                // Call the function to load selected rides after tab content is updated
+             loadSelectedRides(form);
             }
         });
     });

@@ -1,56 +1,91 @@
-  body {
-            font-family: Arial, sans-serif;
-            background-color: #e1b1b1;
-            margin: 0;
-            padding: 0;
-        }
+/* continue button */
+/* Style the button with a yellow background */
+#continue-shopping {
+    position: fixed;
+    top: 10px; /* Adjust the top position as needed */
+    left: 10px; /* Adjust the left position as needed */
+    background-color: yellow;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #333;
+}
 
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            color: #333;
-        }
+#continue-shopping:hover {
+    background-color: #ffdb4d; /* Lighter yellow background color on hover */
+}
 
-        #ticket-details {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            margin-top: 20px;
-        }
+/* Style the "Confirm Ticket" button with a green background */
+#confirm-ticket {
+    position: fixed;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: green;
+}
 
-        #selected-rides {
-            font-weight: bold;
-        }
+#confirm-ticket:hover {
+    background-color: rgb(149, 189, 144); /* Change the hover color as needed */
+}
 
-        .ride-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e1b1b1;
+    margin: 0;
+    padding: 0;
+}
 
-        .ride-row img {
-            max-width: 100px;
-            max-height: 100px;
-            margin-right: 10px;
-        }
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
 
-        .ride-row button {
-            background-color: #dc3545;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+#ticket-details {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+}
 
-        #total-price {
-            text-align: right;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+#selected-rides {
+    font-weight: bold;
+}
+
+.ride-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.ride-row img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+.ride-row button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#total-price {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 20px;
+}

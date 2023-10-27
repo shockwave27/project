@@ -2,12 +2,12 @@
 <?php
 session_start();
 
-if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
-    echo "Rides in Session: ";
-    echo implode(', ', $_SESSION['selectedRides']);
-} else {
-    echo "No rides in session.";
-}
+// if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
+//     echo "Rides in Session: ";
+//     echo implode(', ', $_SESSION['selectedRides']);
+// } else {
+//     echo "No rides in session.";
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +15,21 @@ if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Details</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="assets/css/confirmbooking.css" rel="stylesheet">
+    <style>
+        
+        </style>
 </head>
 <body>
-    <h1>Ticket Details</h1>
+    <br>
+
+    <!-- Continue Shopping Button -->
+    <button id="continue-shopping" onclick="redirectToRideBookingPage()">Continue Selecting Rides <i class='fas fa-box'></i></button>
+    <button id="confirm-ticket" onclick="confirmTicket()">Confirm Ticket <i class='fas fa-calendar-check'></i></button>
+    <br><h1>Ticket Details</h1>
     
     <div id="ticket-details">
         <p id="selected-rides">Selected Rides: </p>
@@ -27,12 +37,12 @@ if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
         <p id="total-price">Total Price: </p>
     </div>
 
-    <!-- Continue Shopping Button -->
-    <button id="continue-shopping" onclick="storeSelectedRidesInSession()">Continue Shopping</button>
 
-    <button id="confirm-ticket" onclick="confirmTicket()">Confirm Ticket</button>
 
     <script>
+        function redirectToRideBookingPage() {
+    window.location.href = "ridebooking.php";
+}
       // Function to parse query parameters from the URL
 // Define selectedRidesArray in a broader scope
 let selectedRidesArray = [];
@@ -89,14 +99,14 @@ function displayTicketDetails() {
                         rideRow.className = 'ride-row';
                         rideRow.innerHTML = `
                             <img src="/nimbus_v3/admin/ride/assets/php/${ride.photo}" alt="/nimbus_v3/admin/ride/assets/php/${ride.name}" width="100">
-                            <span>${ride.name} - $${ride.price.toFixed(2)}</span>
-                            <button data-ride-name="${ride.name}" data-ride-price="${ride.price}" onclick="removeRide(this)">Remove</button>
+                            <span>${ride.name} - ₹${ride.price.toFixed(2)}</span>
+                            <button data-ride-name="${ride.name}" data-ride-price="${ride.price}" onclick="removeRide(this)">Remove <i class='fas fa-broom'></i></button>
                         `;
                         rideDetailsElement.appendChild(rideRow);
 
                         // Update the total price
                         totalPrice += ride.price;
-                        totalPriceElement.textContent = 'Total Price: $' + totalPrice.toFixed(2);
+                        totalPriceElement.textContent = 'Total Price: ₹' + totalPrice.toFixed(2);
                     });
                 }
             }
@@ -108,9 +118,11 @@ function displayTicketDetails() {
 function storeSelectedRidesInSession() {
     const params = getQueryParameters();
     const selectedRides = params.get('selectedRides');
-
+        console.log("session fn");
+        console.log(selectedRides);
     // Check if there are selected rides
     if (selectedRides) {
+        console.log("session store");
         // Assuming you're using jQuery for the AJAX request
         $.ajax({
             type: 'POST', // Use POST for more secure data transfer
@@ -168,20 +180,21 @@ function removeRide(button) {
 
 function confirmTicket() {
     // Assuming you want to confirm the ticket and process it on the server
-    // You can make an AJAX request to a PHP script to handle the confirmation
+    // You can make an AJAX request to a PHP script to handle the confirmation and store the total price in the session.
 
-    // Replace 'confirm_ticket.php' with the actual URL to process the ticket confirmation
+    // Update this URL to the correct path of your PHP script
+    const storeTotalPriceURL = 'store_total_price_in_session.php';
+
+    // Make an AJAX request to store the total price
     $.ajax({
-        type: 'POST', // Use POST for more secure data transfer
-        url: 'confirm_ticket.php',
-        data: { selectedRides: selectedRidesArray }, // Send selected rides data
+        type: 'POST',
+        url: storeTotalPriceURL,
+        data: { totalPrice: totalPrice },
         success: function (response) {
-            // Handle the server's response, if needed
-            // For example, you could display a confirmation message to the user
-            alert(response);
+            alert(response); // Display a success message or handle the response as needed
+            window.location.href = "checkout.php"; // Redirect to the checkout page
         },
         error: function (xhr, status, error) {
-            // Handle errors, if any
             console.error(error);
         }
     });
