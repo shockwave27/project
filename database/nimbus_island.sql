@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2023 at 11:08 PM
+-- Generation Time: Oct 29, 2023 at 12:59 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -83,6 +83,7 @@ INSERT INTO `login` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 (47, 'basil', 'basil@gmail.com', 'Basil2733', 'user', 'inactive'),
 (45, 'doncarlo', 'carlo@gmail.com', 'Carlo2733', 'user', 'active'),
 (44, 'john', 'john@gmail.com', 'John2733', 'user', 'active'),
+(48, 'john_prasad', 'johnprasad2733@gmail.com', 'John2733', 'user', 'active'),
 (46, 'pauly', 'paulson877@gmail.com', 'Paulson2255', 'user', 'active');
 
 -- --------------------------------------------------------
@@ -98,16 +99,21 @@ CREATE TABLE `ride` (
   `ride_availability` int(11) NOT NULL,
   `ride_price` int(11) NOT NULL,
   `ride_photo` varchar(300) NOT NULL,
-  `ride_type` varchar(100) NOT NULL
+  `ride_type` varchar(100) NOT NULL,
+  `basic` varchar(30) NOT NULL,
+  `fastrack` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ride`
 --
 
-INSERT INTO `ride` (`ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type`) VALUES
-(35, 'Roller Coasters', 'Roller coasters are one of the most iconic and thrilling amusement park rides.\r\nThey feature a track with various elements like loops, corkscrews, and steep drops that create intense G-forces.\r\nRiders sit in cars or trains that are secured to the track, allowing for high-speed and often gravity-defying maneuvers.', 0, 12, 'uploads/pexels-brett-sayles-14388572.jpg', 'Thrill Rides'),
-(36, 'Carouse', 'A classic flat ride featuring a circular platform with mounted animal figures, such as horses, that move up and down as the ride spins.\r\nOften found in traditional amusement parks and designed for riders of all ages, including young children.', 0, 10, 'uploads/pexels-deva-darshan-2695402.jpg', 'Flat Rides');
+INSERT INTO `ride` (`ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type`, `basic`, `fastrack`) VALUES
+(35, 'Roller Coasters', 'Roller coasters are one of the most iconic and thrilling amusement park rides.\r\nThey feature a track with various elements like loops, corkscrews, and steep drops that create intense G-forces.\r\nRiders sit in cars or trains that are secured to the track, allowing for high-speed and often gravity-defying maneuvers.', 0, 12, 'uploads/pexels-brett-sayles-14388572.jpg', 'Thrill Rides', 'yes', 'yes'),
+(36, 'Carouse', 'A classic flat ride featuring a circular platform with mounted animal figures, such as horses, that move up and down as the ride spins.\r\nOften found in traditional amusement parks and designed for riders of all ages, including young children.', 0, 10, 'uploads/pexels-deva-darshan-2695402.jpg', 'Flat Rides', 'yes', ''),
+(39, 'ride 4', 'hahah nothing', 0, 13, 'uploads/pexels-inga-seliverstova-3243241.jpg', 'Thrill Rides', '', ''),
+(40, 'giant wheel', 'no', 0, 23, 'uploads/pexels-isabelle-taylor-1376407.jpg', 'Flat Rides', '', ''),
+(43, 'ride6', 'nn', 0, 34, 'uploads/pexels-jimmy-chan-2537536.jpg', 'adrenaline boost', '', '');
 
 -- --------------------------------------------------------
 
@@ -128,7 +134,8 @@ CREATE TABLE `ridecategory` (
 
 INSERT INTO `ridecategory` (`category_id`, `category_type`, `category_description`, `category_priority`) VALUES
 (3, 'Thrill Rides', 'Thrill rides are a category of amusement park attractions designed to provide intense, exhilarating, and adrenaline-pumping experiences for riders. These rides often incorporate high speeds, steep drops, sudden changes in motion, and other elements that create a sense of excitement and fear', 'primary'),
-(4, 'Flat Rides', 'Flat rides are a category of amusement park attractions that typically feature a flat, stationary base while the ride itself rotates or moves in various ways to provide entertainment and thrills. Unlike roller coasters or drop towers, flat rides do not typically involve traveling along a track or a predetermined path.', '');
+(4, 'Flat Rides', 'Flat rides are a category of amusement park attractions that typically feature a flat, stationary base while the ride itself rotates or moves in various ways to provide entertainment and thrills. Unlike roller coasters or drop towers, flat rides do not typically involve traveling along a track or a predetermined path.', ''),
+(5, 'adrenaline boost', 'naah', '');
 
 -- --------------------------------------------------------
 
@@ -156,31 +163,38 @@ INSERT INTO `signin` (`user_id`, `user_email`, `first_name`, `last_name`, `user_
 (44, 'john@gmail.com', 'John', 'Prasad', 'john', 'John2733', '0000-00-00', 'user', 'uploads/651c85182f1b8-photo_2023-08-27_00-30-02.jpg'),
 (45, 'carlo@gmail.com', 'Carlo', 'Ancelotti', 'doncarlo', 'Carlo2733', '0000-00-00', 'user', '651fd444e30e5-jpg'),
 (46, 'paulson877@gmail.com', 'Paulson', 'Eldho', 'pauly', 'Paulson2255', '0000-00-00', 'user', 'uploads/651cff913b0c3-photo_2023-10-04_03-25-10.jpg'),
-(47, 'basil@gmail.com', 'Basil', 'Saju', 'basil', 'Basil2733', '0000-00-00', 'user', 'uploads/651d21e6d293f-photo_2023-10-04_03-25-10.jpg');
+(47, 'basil@gmail.com', 'Basil', 'Saju', 'basil', 'Basil2733', '0000-00-00', 'user', 'uploads/651d21e6d293f-photo_2023-10-04_03-25-10.jpg'),
+(48, 'johnprasad2733@gmail.com', 'john', 'prasad', 'john_prasad', 'John2733', '0000-00-00', 'user', 'uploads/653a9e4923999-IMG_20230922_213359__1_-01-01 (1).png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userridebooking`
+-- Table structure for table `ticket`
 --
 
-CREATE TABLE `userridebooking` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `selected_rides` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`selected_rides`)),
-  `total_price` decimal(10,2) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+CREATE TABLE `ticket` (
+  `ticket_id` int(11) NOT NULL,
+  `t_uniq_id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(100) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `name_on_card` varchar(100) NOT NULL,
+  `card_number` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `no_of_tickets` int(11) DEFAULT NULL,
+  `rides` longtext NOT NULL,
+  `pay_date` date NOT NULL,
+  `book_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `userridebooking`
+-- Dumping data for table `ticket`
 --
 
-INSERT INTO `userridebooking` (`id`, `user_id`, `selected_rides`, `total_price`, `order_date`) VALUES
-(79, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:30:17'),
-(80, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:30:17'),
-(81, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:40:12'),
-(82, 123, '[\"ride1\",\"ride3\"]', '0.00', '2023-10-06 20:40:12');
+INSERT INTO `ticket` (`ticket_id`, `t_uniq_id`, `user_id`, `user_name`, `full_name`, `email`, `name_on_card`, `card_number`, `price`, `no_of_tickets`, `rides`, `pay_date`, `book_date`) VALUES
+(56, 2310282359470048, 48, 'john_prasad', 'john', 'johnprasad2733@gmail.com', '', 0, '25.00', 1, 'Roller Coasters, ride 4', '2023-10-28', '1970-01-01'),
+(57, 2310290046000048, 48, 'john_prasad', 'john', 'johnprasad2733@gmail.com', 'john', 3056, '50.00', 2, 'Roller Coasters, ride 4, Carouse', '2023-10-29', '2023-10-29');
 
 --
 -- Indexes for dumped tables
@@ -223,10 +237,10 @@ ALTER TABLE `signin`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `userridebooking`
+-- Indexes for table `ticket`
 --
-ALTER TABLE `userridebooking`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`ticket_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -248,25 +262,25 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `ride`
 --
 ALTER TABLE `ride`
-  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `ridecategory`
 --
 ALTER TABLE `ridecategory`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `signin`
 --
 ALTER TABLE `signin`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
--- AUTO_INCREMENT for table `userridebooking`
+-- AUTO_INCREMENT for table `ticket`
 --
-ALTER TABLE `userridebooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+ALTER TABLE `ticket`
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
