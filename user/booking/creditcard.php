@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     
@@ -8,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $numberOfTickets = $_POST["ticket-quantity"]; //
     $ticketPrice = $_POST['total-price'];
+    echo $ticketPrice;
     $bookdate = $_POST["bookdate"]; 
     // You can retrieve more form fields here
     

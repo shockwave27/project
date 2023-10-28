@@ -216,7 +216,6 @@ span.price {
 </div>
 
 <script>
-
 document.getElementById('increment-btn').addEventListener('click', function () {
   var ticketQuantity = parseInt(document.getElementById('ticket-quantity').value);
   ticketQuantity++;
@@ -240,14 +239,18 @@ function updateTotalPrice() {
   var originalPricePerTicket = parseFloat(document.getElementById('hidden-total-price').value); // Get the original price per ticket
   var totalPrice = ticketQuantity * originalPricePerTicket;
 
-  // Display the updated total price
+  // Display the updated total price in the <p> element
   document.getElementById('total-price').innerHTML = 'Total <span class="price" style="color:black"><b>$' + totalPrice.toFixed(2) + '</b></span>';
+
+  // Update the value of the hidden input field with the new total price
+  document.getElementById('hidden-total-price').value = totalPrice;
 }
 
 // Initial call to update total price
 updateTotalPrice();
 
-</script> 
+</script>
+
 
 </body>
 </html>

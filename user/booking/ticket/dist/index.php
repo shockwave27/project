@@ -127,6 +127,12 @@ echo "Current Date: " . $currentDate . "<br>";
     </div> -->
   </div>
 </div>
+<form action="invoice_page.php" method="POST">
+  <input type="hidden" name="uniqueID" value="<?php echo $uniqueID; ?>">
+  <input type="hidden" name="username" value="<?php echo $username; ?>">
+  <button type="submit" name="printInvoice">Invoice</button>
+</form>
+
 <aside class="context">
   <div class="explanation">Part of the <a href="https://codepen.io/collection/DQvYpQ/" target="_blank">CSS Grid collection here</a>.</div>
 </aside>
