@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo implode(', ', $_SESSION['selectedRides']);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     

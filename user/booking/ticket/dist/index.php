@@ -1,6 +1,6 @@
 <?php
 session_start(); // Start the session
-
+echo implode(', ', $_SESSION['selectedRides']);
 // Retrieve data from session variables
 $userid = $_SESSION['userid'];
 $nameOnCard = $_SESSION['nameOnCard'];
@@ -52,19 +52,19 @@ echo "Current Date: " . $currentDate . "<br>";
         <div class="info__item">Name</div>
         <div class="info__detail"><?php echo $fullname; ?></div>
       </div>
-      <!-- <div class="info platform"> <span>Depart </span><span>from </span><span>platform</span>
+      <div class="info platform"> <span>Ticket </span><span> </span><span>Type</span>
         <div class="number">
-          <div>9</div>
-          <div> <span>3</span><span>4</span></div>
+          <div></div>
+          <div>basic<span></span>-<span></span>ticekt</div>
         </div>
-      </div> -->
+      </div>
       <!-- <div class="info departure">
         <div class="info__item">Depart</div>
         <div class="info__detail">King's Cross</div>
-      </div>
-      <div class="info arrival">
-        <div class="info__item">Arrive</div>
-        <div class="info__detail">Hogsmeade</div>
+      </div>-->
+      <!-- <div class="info arrival">
+        <div class="info__item">Ticket Type</div>
+        <div class="info__detail">basic</div>
       </div> -->
       <div class="info date">
         <div class="info__item">Date of booking</div>
@@ -122,9 +122,9 @@ echo "Current Date: " . $currentDate . "<br>";
       </div>
       <div class="barcode">
         <div class="barcode__scan"></div>
-        <!-- <div class="barcode__id"></div> -->
+         <div class="barcode__id"></div> -->
       </div>
-    </div> -->
+    </div> 
   </div>
 </div>
 <form action="invoice_page.php" method="POST">

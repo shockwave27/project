@@ -1,5 +1,12 @@
 <?php
 session_start();
+echo implode(', ', $_SESSION['selectedRides']);
+if (isset($_SESSION['selectedRides'])) {
+    // Assign the session variable to a regular PHP variable
+    $selectedRides = $_SESSION['selectedRides'];
+    $selectedRidesString = implode(', ', $_SESSION['selectedRides']);
+    
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $userid = $_POST["userid"];
@@ -55,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "unique id". $uniqueID . "<br>";
 
     // Use $uniqueID in your INSERT statement
-    $sql = "INSERT INTO ticket (t_uniq_id, user_id, user_name, full_name, email, name_on_card, card_number, price, rides, pay_date, book_date)
-            VALUES ('$uniqueID', '$userid', '$username', '$fullname', '$email', '$nameOnCard', '$cardNumber', '$ticketPrice', '$numberOfTickets', '$currentDate', '$formattedDate')";
+    $sql = "INSERT INTO ticket (t_uniq_id, user_id, user_name, full_name, email, name_on_card, card_number, price, no_of_tickets, rides, pay_date, book_date)
+            VALUES ('$uniqueID', '$userid', '$username', '$fullname', '$email', '$nameOnCard', '$cardNumber', '$ticketPrice', '$numberOfTickets', '$selectedRidesString', '$currentDate', '$formattedDate')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted into the database successfully.";
