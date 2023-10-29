@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+echo $_SESSION['user_id'];
 // Check if the user is logged in (user_id exists in the session)
 if (!isset($_SESSION['user_id'])) {
     // Redirect to the login page if the user is not authenticated
@@ -12,8 +12,9 @@ if (!isset($_SESSION['user_id'])) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>bs5 profile security page - Bootdey.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -101,28 +102,34 @@ color:#69707a;
 <div class="card mb-4">
 <div class="card-header">Change Password</div>
 <div class="card-body">
-<form>
+<form id="changePasswordForm">
+  <div class="mb-3">
+    <label class="small mb-1" for="currentPassword">Current Password</label>
+    <div class="form-wrapper">
+      <input class="form-control" id="currentPassword" type="password" placeholder="Enter current password">
+      <i class='far fa-eye' id="showCurrentPassword" onclick="togglePasswordVisibility('currentPassword')"></i>
+    </div>
+  </div>
 
-<div class="mb-3">
-<label class="small mb-1" for="currentPassword">Current Password</label>
-<input class="form-control" id="currentPassword" type="password" placeholder="Enter current password">
-</div>
+  <div class="mb-3">
+    <label class="small mb-1" for="newPassword">New Password</label>
+    <div class="form-wrapper">
+      <input class="form-control" id="newPassword" type="password" placeholder="Enter new password">
+      <i class='far fa-eye' id="showNewPassword" onclick="togglePasswordVisibility('newPassword')"></i>
+    </div>
+  </div>
 
-<div class="mb-3">
-<label class="small mb-1" for="newPassword">New Password</label>
-<input class="form-control" id="newPassword" type="password" placeholder="Enter new password">
-</div>
-
-<div class="mb-3">
-<label class="small mb-1" for="confirmPassword">Confirm Password</label>
-<input class="form-control" id="confirmPassword" type="password" placeholder="Confirm new password">
-</div>
-<button class="btn btn-primary" type="button">Save</button>
+  <div class="mb-3">
+    <a href="/nimbus_v3/vendor/forgot_password.php">Forgot Password?</a>
+  </div>
+  <button class="btn btn-primary" type="submit">Change Password</button>
 </form>
+
+
 </div>
 </div>
 
-<div class="card mb-4">
+<!-- <div class="card mb-4">
 <div class="card-header">Security Preferences</div>
 <div class="card-body">
 
@@ -153,11 +160,11 @@ color:#69707a;
 </div>
 </form>
 </div>
-</div>
+</div> -->
 </div>
 <div class="col-lg-4">
 
-<div class="card mb-4">
+<!-- <div class="card mb-4">
 <div class="card-header">Two-Factor Authentication</div>
 <div class="card-body">
 <p>Add another level of security to your account by enabling two-factor authentication. We will send you a text message to verify your login attempts on unrecognized devices and browsers.</p>
@@ -176,7 +183,7 @@ color:#69707a;
 </div>
 </form>
 </div>
-</div>
+</div> -->
 
 <div class="card mb-4">
 <div class="card-header">Delete Account</div>
@@ -208,21 +215,52 @@ color:#69707a;
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        // JavaScript code for handling the complaint form submission
-        $(document).ready(function () {
-            // Handle the form submission
-            $('#complaintForm').submit(function (e) {
-                e.preventDefault(); // Prevent the form from submitting traditionally
-                // You can add your code here to send the complaint data to your server
-                // For this example, we'll just display a confirmation message
-                alert('Complaint submitted successfully!');
-                // Clear the form fields
-                $('#complaintSubject').val('');
-                $('#complaintText').val('');
-            });
-        });
-    </script>
+<script>
+    $(document).ready(function() {
+  $("#changePasswordForm").submit(function(event) {
+    event.preventDefault(); // Prevent the form from submitting in the traditional way
+    
+    // Retrieve form data
+    var formData = {
+      currentPassword: $("#currentPassword").val(),
+      newPassword: $("#newPassword").val(),
+    };
+    console.log(formData);
+    // Send the form data to the server for validation
+    $.ajax({
+        type: "POST",
+        url: "change_password.php",
+        data: formData,
+        cache: false,
+        dataType: "json", // Specify the expected data type as JSON
+        success: function(response) {
+            if (response.message === "Password changed successfully") {
+                // Passwords match, show a success message
+                alert("Password changed successfully.");
+            } else {
+                // Passwords do not match, show an error message
+                alert("Current password is incorrect. Please try again.");
+            }
+        }
+    });
+  });
+});
+</script>
+
+
+    <script>
+  function togglePasswordVisibility(inputId) {
+    var input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+    } else {
+      input.type = "password";
+    }
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">

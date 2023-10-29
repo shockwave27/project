@@ -290,9 +290,9 @@ if (isset($_POST['printInvoice'])) {
 <div class="col-md-12">
 <div class="invoice-wrapper">
 <div class="intro">
-Hi <strong>John McClane</strong>,
+Hi <strong><?php echo $fullName; ?></strong>,
 <br>
-This is the receipt for a payment of <strong>$312.00</strong> (USD) for your works
+This is the receipt for a payment of <strong>₹<?php echo $ticketPrice;?></strong>(USD) for your works
 </div>
 <div class="payment-info">
 <div class="row">

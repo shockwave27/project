@@ -230,7 +230,7 @@
 <div class="intro">
 Hi <strong>[USERNAME]</strong>,
 <br>
-This is the receipt for a payment of <strong>$312.00</strong> (USD) for your works
+This is the receipt for a payment of <strong>₹[TICKETPRICE]</strong> 
 </div>
 <div class="payment-info">
 <div class="row">
