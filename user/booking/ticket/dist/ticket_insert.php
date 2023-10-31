@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numberOfTickets = $_POST["ticket-quantity"];
     $ticketPrice = $_POST['total-price'];
     $bookdate = $_POST["bookdate"];
-
+    $ticketType=$_SESSION['ticketType'];
 
     echo "User ID: " . $userid . "<br>";
     echo "Name on Card: " . $nameOnCard . "<br>";
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Number of Tickets: " . $numberOfTickets . "<br>";
     echo "Total Price: $" . $ticketPrice . "<br>";
     echo "book date". $bookdate . "<br>";
-
+    echo "ticket type". $ticketType . "<br>";
     // Set up your database connection
     $servername = "localhost";
     $dbUsername = "root";
@@ -62,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "unique id". $uniqueID . "<br>";
 
     // Use $uniqueID in your INSERT statement
-    $sql = "INSERT INTO ticket (t_uniq_id, user_id, user_name, full_name, email, name_on_card, card_number, price, no_of_tickets, rides, pay_date, book_date)
-            VALUES ('$uniqueID', '$userid', '$username', '$fullname', '$email', '$nameOnCard', '$cardNumber', '$ticketPrice', '$numberOfTickets', '$selectedRidesString', '$currentDate', '$formattedDate')";
+    $sql = "INSERT INTO ticket (t_uniq_id, user_id, user_name, full_name, email, name_on_card, card_number, price, no_of_tickets, rides, pay_date, book_date, ticket_cat)
+            VALUES ('$uniqueID', '$userid', '$username', '$fullname', '$email', '$nameOnCard', '$cardNumber', '$ticketPrice', '$numberOfTickets', '$selectedRidesString', '$currentDate', '$formattedDate','$ticketType')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted into the database successfully.";

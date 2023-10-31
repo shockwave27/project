@@ -56,22 +56,22 @@ if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
 <body>
 
   <!-- ======= Header ======= -->
-  <!--<header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-     <!-- <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-  <!-- <img src="assets/img/logo.png" alt=""> -->
-  <!--<h1>Yummy<span>.</span></h1>
-      </a> -->
+  <img src="assets/img/logo.png" alt="">
+  <h1>Nimbus Island<span>.</span></h1>
+      </a> 
 
 
-  <!-- <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+   <a class="btn-book-a-table" href="bookingconfirm.php">confirm booking</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
-    </div>-->
-  <!--</header><!-- End Header -->
+    </div>
+  </header><!-- End Header -->
 
 
 
@@ -166,7 +166,8 @@ if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
         <!-- Floating cart for selected items -->
 
         <div id="floating-cart">
-          <h2>Selected Items</h2>
+          <br><br><br>
+          <h2>Selected Rides</h2>
           <ul id="selected-items">
             <!-- Selected items will appear here -->
           </ul>

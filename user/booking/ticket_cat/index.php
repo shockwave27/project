@@ -14,10 +14,26 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$latestTicketQuery = "SELECT `basic`, `fast` FROM `ticket_cat_price` ORDER BY `ticket_cat_price_id` DESC LIMIT 1"; 
 
 $basicquery = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type`, `basic`, `fastrack` FROM `ride` WHERE basic = 'yes'";
    
 $fastquery = "SELECT `ride_id`, `ride_name`, `ride_details`, `ride_availability`, `ride_price`, `ride_photo`, `ride_type`, `basic`, `fastrack` FROM `ride` WHERE fastrack = 'yes'";
+
+$result = mysqli_query($conn, $latestTicketQuery);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $basicValue = $row['basic'];
+    $fastValue = $row['fast'];
+
+    // Now you have the basic and fast values in the $basicValue and $fastValue variables
+    // You can use them as needed
+    // echo "Basic Value: " . $basicValue . "<br>";
+    // echo "Fast Value: " . $fastValue . "<br>";
+} else {
+    echo "Error executing query: " . mysqli_error($conn);
+}
+
 
 // Execute the queries and fetch ride data
 $basicresult = mysqli_query($conn, $basicquery);
@@ -72,6 +88,14 @@ $conn->close();
 	<script type="text/javascript" src="js/tabulous.js"></script>
 	<script type="text/javascript" src="js/flip.js"></script>
 	
+	<!-- redirect to special booking-->
+		<script type="text/javascript">
+    function redirectForSpecialBooking() {
+        window.location.href = "/nimbus_v3/user/booking/ridebooking.php"; // Replace with the actual URL of your booking page
+    }
+</script>
+		
+
 	<!-- Gallery effect CSS --> <link rel="stylesheet" href="css/swipebox.css">
 	
 	<!--JS for animate-->
@@ -112,7 +136,7 @@ $conn->close();
 						<ul>
 							<li><a href="#tabs-1" title="">Basic</a></li>
 							<li><a href="#tabs-2" title="">Fastrack</a></li>
-							<li><a href="#tabs-3" title="">Special</a></li>
+							<li><a href="#tabs-3" title="" onclick="redirectForSpecialBooking()">Special</a></li>
 						</ul>
 						
 						<div id="tabs_container">
@@ -121,7 +145,7 @@ $conn->close();
 									<section class="grid1a">
 										<section class="para-a">
 											<h4>One Person</h4>
-											<h5> <span>$</span>65</h5>
+											<h5> <span>$</span><?php echo" $basicValue" ?></h5>
 											<p>Fun as You LIke</p>
 											<p>Only place in the World</p>
 										</section>
@@ -150,7 +174,7 @@ $conn->close();
 									<section class="grid2a">
 										<section class="para-a">
 											<h4>One Person</h4>
-											<h5> <span>$</span>40</h5>
+											<h5> <span>$</span><?php echo" $fastValue" ?></h5>
 											<p>Fun as You LIke</p>
 											<p>Only place in the World</p>
 										</section>
@@ -168,14 +192,14 @@ $conn->close();
                                              ?>
 										</section>
 										<br>
-										<button class="book-now-button" data-ticket-data='<?php echo json_encode($fastrides); ?>' data-ticket-type="fast">Book Now</button>
+										<button class="book-now-button-fast" data-ticket-data='<?php echo json_encode($fastrides); ?>' data-ticket-type="fast">Book Now</button>
 
 
 									</section>
 							</div>
 
 							<div id="tabs-3" >
-									<section class="grid3a">
+									<!-- <section class="grid3a">
 										<section class="para-a">
 											<h4>Four Persons</h4>
 											<h5> <span>$</span>199</h5>
@@ -196,7 +220,7 @@ $conn->close();
 											<p> skyRide - One Way </p>
 											<p> water slide - only Two time </p>
 										</section>
-									</section>
+									</section> -->
 							</div>
 
 						</div><!--End tabs container-->
@@ -261,6 +285,13 @@ $conn->close();
 	<script>
 // JavaScript function to handle the button click
 document.querySelector('.book-now-button').addEventListener('click', function() {
+console.log("button is clicked");
+    var ticketData = JSON.parse(this.getAttribute('data-ticket-data'));
+    var ticketType = this.getAttribute('data-ticket-type');
+    bookTicket(ticketData, ticketType);
+});
+document.querySelector('.book-now-button-fast').addEventListener('click', function() {
+console.log("button is clicked");
     var ticketData = JSON.parse(this.getAttribute('data-ticket-data'));
     var ticketType = this.getAttribute('data-ticket-type');
     bookTicket(ticketData, ticketType);
@@ -274,11 +305,15 @@ function bookTicket(ticketData, ticketType) {
     });
     console.log('Selected ' + ticketType + ' Ticket Rides:', rideNames);
 	if (rideNames) {
+		var data = {
+            selectedRides: rideNames,
+            ticketType: ticketType
+        };
                 // Assuming you're using jQuery for the AJAX request
                 $.ajax({
                     type: 'POST', // Use POST for more secure data transfer
                     url: 'store_selected_rides_in_session.php', // Replace with the actual URL to process the data on the server
-                    data: { selectedRides: rideNames },
+					data: data,
                     success: function (response) {
                         // Handle the server's response, if needed
                         // For example, you could display a success message to the user

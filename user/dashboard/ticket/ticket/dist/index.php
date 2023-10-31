@@ -1,37 +1,65 @@
 <?php
-session_start(); // Start the session
-echo implode(', ', $_SESSION['selectedRides']);
-// Retrieve data from session variables
-$userid = $_SESSION['userid'];
-$nameOnCard = $_SESSION['nameOnCard'];
-$cardNumber = $_SESSION['cardNumber'];
-$expirationDate = $_SESSION['expirationDate'];
-$securityCode = $_SESSION['securityCode'];
-$username = $_SESSION['username'];
-$fullname = $_SESSION['fullname'];
-$email = $_SESSION['email'];
-$numberOfTickets = $_SESSION['numberOfTickets'];
-$ticketPrice = $_SESSION['ticketPrice'];
-$bookdate = $_SESSION['bookdate'];
-$uniqueID = $_SESSION['uniqueid'];
+// Make sure you have an active database connection first
+$servername = "localhost";
+$username = "root";
+$password = ""; // No password
 
-$currentDate =  $_SESSION['currentdate'];
-$ticketType=$_SESSION['ticketType'];
+// Create a connection to the MySQL database
+$conn = new mysqli($servername, $username, $password, "nimbus_island");
 
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Check if the request is a POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the ticket_id and user_id from the POST data
+    $ticketId = $_POST['ticket_id'];
+    $userId = $_POST['user_id'];
 
-echo "User ID: " . $userid . "<br>";
-echo "Name on Card: " . $nameOnCard . "<br>";
-echo "Card Number: " . $cardNumber . "<br>";
-echo "Expiration Date: " . $expirationDate . "<br>";
-echo "Security Code: " . $securityCode . "<br>";
-echo "Username: " . $username . "<br>";
-echo "Full Name: " . $fullname . "<br>";
-echo "Email: " . $email . "<br>";
-echo "Number of Tickets: " . $numberOfTickets . "<br>";
-echo "Total Price: $" . $ticketPrice . "<br>";
-echo "Book Date: " . $bookdate . "<br>";
-echo "Unique ID: " . $uniqueID . "<br>";
-echo "Current Date: " . $currentDate . "<br>";
+    // Create a SQL query to fetch the ticket details
+    $sql = "SELECT `ticket_id`, `t_uniq_id`, `user_id`, `user_name`, `full_name`, `email`, `name_on_card`, `card_number`, `price`, `no_of_tickets`, `rides`, `pay_date`, `book_date`, `ticket_cat`
+            FROM `ticket`
+            WHERE `ticket_id` = $ticketId AND `user_id` = $userId";
+
+    // Execute the query
+    $result = $conn->query($sql);
+
+    // Check if there is a result
+    if ($result) {
+        // Fetch the ticket details and assign them to variables
+        if ($row = $result->fetch_assoc()) {
+            $ticketId = $row['ticket_id'];
+            $tUniqId = $row['t_uniq_id'];
+            $userFullName = $row['full_name'];
+            $email = $row['email'];
+            $nameOnCard = $row['name_on_card'];
+            $cardNumber = $row['card_number'];
+            $price = $row['price'];
+            $numberOfTickets = $row['no_of_tickets'];
+            $rides = $row['rides'];
+            $payDate = $row['pay_date'];
+            $bookDate = $row['book_date'];
+            $ticketCat = $row['ticket_cat'];
+            
+            // You can continue to assign other variables here if needed
+        }
+
+        // Display the ticket details
+        echo '<h1>Ticket Details</h1>';
+        echo 'Ticket ID: ' . $ticketId;
+        echo 'Transaction ID: ' . $tUniqId;
+        // Display other ticket details as needed
+
+        // Close the database connection
+        $conn->close();
+    } else {
+        echo 'Ticket not found.';
+    }
+} else {
+    // If it's not a POST request, handle it accordingly (e.g., redirect to a different page).
+    echo 'Invalid request';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -51,12 +79,12 @@ echo "Current Date: " . $currentDate . "<br>";
       <div class="header">NIMBUS ISLAND</div>
       <div class="info passenger">
         <div class="info__item">Name</div>
-        <div class="info__detail"><?php echo $fullname; ?></div>
+        <div class="info__detail"><?php echo $userFullName; ?></div>
       </div>
       <div class="info platform"> <span>Ticket </span><span> </span><span>Type</span>
         <div class="number">
           <div></div>
-          <div><?php echo $ticketType; ?><span></span>-<span></span>ticekt</div>
+          <div><?php echo $ticketCat; ?><span></span>-<span></span>ticekt</div>
         </div>
       </div>
       <!-- <div class="info departure">
@@ -69,11 +97,11 @@ echo "Current Date: " . $currentDate . "<br>";
       </div> -->
       <div class="info date">
         <div class="info__item">Date of booking</div>
-        <div class="info__detail"><?php echo $currentDate; ?></div>
+        <div class="info__detail"><?php echo  $payDate ?></div>
       </div>
       <div class="info time">
         <div class="info__item">booked at</div>
-        <div class="info__detail"><?php echo  $currentDate; ?></div>
+        <div class="info__detail"><?php echo   $payDate ?></div>
       </div>
       <div class="info carriage">
         <div class="info__item">No of admits</div>
@@ -81,7 +109,7 @@ echo "Current Date: " . $currentDate . "<br>";
       </div>
       <div class="info seat">
         <div class="info__item">date booked for</div>
-        <div class="info__detail"><?php echo $bookdate; ?></div>
+        <div class="info__detail"><?php echo $bookDate; ?></div>
       </div>
       <div class="fineprint"> 
         <!-- <p>Boarding begins 30 minutes before departure. Snacks available for purchase from The Honeydukes Express.</p> -->
@@ -98,7 +126,7 @@ echo "Current Date: " . $currentDate . "<br>";
       </div>
       <div class="barcode">
     <div class="barcode__scan"></div>
-    <div class="barcode__id"><?php echo $uniqueID; ?></div>
+    <div class="barcode__id"><?php echo $tUniqId; ?></div>
      </div>
 
     <!-- <div class="ticket__side">
@@ -128,11 +156,11 @@ echo "Current Date: " . $currentDate . "<br>";
     </div> 
   </div>
 </div>
-<form action="invoice_page.php" method="POST">
-  <input type="hidden" name="uniqueID" value="<?php echo $uniqueID; ?>">
-  <input type="hidden" name="username" value="<?php echo $username; ?>">
+<!-- <form action="invoice_page.php" method="POST">
+  <input type="hidden" name="uniqueID" value="">
+  <input type="hidden" name="username" value="">
   <button type="submit" name="printInvoice">Invoice</button>
-</form>
+</form> -->
 
 <aside class="context">
   <div class="explanation">Part of the <a href="https://codepen.io/collection/DQvYpQ/" target="_blank">CSS Grid collection here</a>.</div>

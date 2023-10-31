@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2023 at 12:59 AM
+-- Generation Time: Oct 31, 2023 at 10:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -83,7 +83,7 @@ INSERT INTO `login` (`user_id`, `user_name`, `user_email`, `user_password`, `use
 (47, 'basil', 'basil@gmail.com', 'Basil2733', 'user', 'inactive'),
 (45, 'doncarlo', 'carlo@gmail.com', 'Carlo2733', 'user', 'active'),
 (44, 'john', 'john@gmail.com', 'John2733', 'user', 'active'),
-(48, 'john_prasad', 'johnprasad2733@gmail.com', 'John2733', 'user', 'active'),
+(48, 'john_prasad', 'johnprasad2733@gmail.com', 'J0hn2733', 'user', 'active'),
 (46, 'pauly', 'paulson877@gmail.com', 'Paulson2255', 'user', 'active');
 
 -- --------------------------------------------------------
@@ -164,7 +164,7 @@ INSERT INTO `signin` (`user_id`, `user_email`, `first_name`, `last_name`, `user_
 (45, 'carlo@gmail.com', 'Carlo', 'Ancelotti', 'doncarlo', 'Carlo2733', '0000-00-00', 'user', '651fd444e30e5-jpg'),
 (46, 'paulson877@gmail.com', 'Paulson', 'Eldho', 'pauly', 'Paulson2255', '0000-00-00', 'user', 'uploads/651cff913b0c3-photo_2023-10-04_03-25-10.jpg'),
 (47, 'basil@gmail.com', 'Basil', 'Saju', 'basil', 'Basil2733', '0000-00-00', 'user', 'uploads/651d21e6d293f-photo_2023-10-04_03-25-10.jpg'),
-(48, 'johnprasad2733@gmail.com', 'john', 'prasad', 'john_prasad', 'John2733', '0000-00-00', 'user', 'uploads/653a9e4923999-IMG_20230922_213359__1_-01-01 (1).png');
+(48, 'johnprasad2733@gmail.com', 'john', 'prasad', 'john_prasad', 'J0hn2733', '0000-00-00', 'user', 'uploads/653a9e4923999-IMG_20230922_213359__1_-01-01 (1).png');
 
 -- --------------------------------------------------------
 
@@ -185,16 +185,35 @@ CREATE TABLE `ticket` (
   `no_of_tickets` int(11) DEFAULT NULL,
   `rides` longtext NOT NULL,
   `pay_date` date NOT NULL,
-  `book_date` date NOT NULL
+  `book_date` date NOT NULL,
+  `ticket_cat` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`ticket_id`, `t_uniq_id`, `user_id`, `user_name`, `full_name`, `email`, `name_on_card`, `card_number`, `price`, `no_of_tickets`, `rides`, `pay_date`, `book_date`) VALUES
-(56, 2310282359470048, 48, 'john_prasad', 'john', 'johnprasad2733@gmail.com', '', 0, '25.00', 1, 'Roller Coasters, ride 4', '2023-10-28', '1970-01-01'),
-(57, 2310290046000048, 48, 'john_prasad', 'john', 'johnprasad2733@gmail.com', 'john', 3056, '50.00', 2, 'Roller Coasters, ride 4, Carouse', '2023-10-29', '2023-10-29');
+INSERT INTO `ticket` (`ticket_id`, `t_uniq_id`, `user_id`, `user_name`, `full_name`, `email`, `name_on_card`, `card_number`, `price`, `no_of_tickets`, `rides`, `pay_date`, `book_date`, `ticket_cat`) VALUES
+(65, 2310311510440048, 48, 'john_prasad', 'john', 'johnprasad2733@gmail.com', 'john prasad', 6756, '700.00', 1, 'Roller Coasters', '2023-10-31', '2023-11-05', 'fast');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket_cat_price`
+--
+
+CREATE TABLE `ticket_cat_price` (
+  `ticket_cat_price_id` int(11) NOT NULL,
+  `basic` int(11) NOT NULL,
+  `fast` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ticket_cat_price`
+--
+
+INSERT INTO `ticket_cat_price` (`ticket_cat_price_id`, `basic`, `fast`) VALUES
+(1, 500, 700);
 
 --
 -- Indexes for dumped tables
@@ -243,6 +262,12 @@ ALTER TABLE `ticket`
   ADD PRIMARY KEY (`ticket_id`);
 
 --
+-- Indexes for table `ticket_cat_price`
+--
+ALTER TABLE `ticket_cat_price`
+  ADD PRIMARY KEY (`ticket_cat_price_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -280,7 +305,13 @@ ALTER TABLE `signin`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `ticket_cat_price`
+--
+ALTER TABLE `ticket_cat_price`
+  MODIFY `ticket_cat_price_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

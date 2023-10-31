@@ -147,7 +147,7 @@ body {
     <nav class="nav nav-borders">
         <a class="nav-link active ms-0" href="userprofile.php" target="__blank">Profile</a>
         <a class="nav-link" href="profile_billing_page.html" target="__blank">Billing</a>
-        <a class="nav-link" href="profile_security_page.html" target="__blank">Security</a>
+        <a class="nav-link" href="security/profile_security_page.php" target="__blank">Security</a>
         <a class="nav-link" href="profile_security_page.html" target="__blank">Notifications</a>
     </nav>
     <hr class="mt-0 mb-4">  
@@ -213,13 +213,13 @@ body {
 <div class="row gx-3 mb-3">
 
 <div class="col-md-6">
-<label class="small mb-1" for="inputPhone">Phone number</label>
-<input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+<!-- <label class="small mb-1" for="inputPhone">Phone number</label>
+<input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567"> -->
 </div>
 
 <div class="col-md-6">
-<label class="small mb-1" for="inputBirthday">Birthday</label>
-<input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+<!-- <label class="small mb-1" for="inputBirthday">Birthday</label>
+<input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988"> -->
 </div>
 </div>
                        <button class="btn btn-primary" id="saveChangesBtn" type="button">Save changes</button>

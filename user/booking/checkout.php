@@ -7,7 +7,9 @@ if (isset($_SESSION['selectedRides']) && is_array($_SESSION['selectedRides'])) {
   echo "Rides in Session: ";
   echo implode(', ', $_SESSION['selectedRides']);
   echo("<br>");
-  echo($_SESSION['totalPrice']);  
+  echo($_SESSION['totalPrice']); 
+  echo("<br>");
+  echo( $_SESSION['ticketType']); 
 } else {
   echo "No rides in session.";
 }

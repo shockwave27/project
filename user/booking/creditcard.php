@@ -34,6 +34,22 @@ echo "book date". $bookdate . "<br>";
   <meta charset="UTF-8">
   <title>CodePen - Credit Card Payment Form</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet"><link rel="stylesheet" href="creditcard.css">
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("payment-form");
+  const nameInput = document.getElementById("name");
+  const cardNumberInput = document.getElementById("cardnumber");
+  const expirationDateInput = document.getElementById("expirationdate");
+  const securityCodeInput = document.getElementById("securitycode");
+
+  form.addEventListener("submit", function (event) {
+    if (!nameInput.value || !cardNumberInput.value || !expirationDateInput.value || !securityCodeInput.value) {
+      event.preventDefault(); // Prevent form submission
+      alert("Please fill in all required fields.");
+    }
+  });
+});
+</script>
 
 </head>
 <body>

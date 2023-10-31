@@ -73,7 +73,15 @@ $conn->close();
 	<script type="text/javascript" src="js/tabulous.js"></script>
 	<script type="text/javascript" src="js/flip.js"></script>
 	 <!-- Include the custom.js JavaScript file -->
+
 	 <script src="js/profilebutton.js"></script>
+	 <!--redirect for booking-->
+	 <script type="text/javascript">
+    function redirectForBooking() {
+        window.location.href = "booking/ticket_cat/"; // Replace with the actual URL of your booking page
+    }
+</script>
+
 	
 	<!-- Gallery effect CSS --> <link rel="stylesheet" href="css/swipebox.css">
 	<!--modal css-->
@@ -131,7 +139,7 @@ $conn->close();
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span> 
 						</button>
-						<a class="navbar-brand logo" href="#"><img src="./images/nimbus.png" alt="logo image"></a>	
+						<a class="navbar-brand logo" href="#"><img src="images/nimbus (1).png" alt="logo image"></a>	
 					</div>
 						
 					<div class="collapse navbar-collapse " id="myNavbar">
@@ -140,9 +148,9 @@ $conn->close();
 							<li><a href="#about" class="scroll wow fadeInRight" data-wow-delay="0.7s">About Us</a></li>
 							<li><a href="#timing" class="scroll wow fadeInRight" data-wow-delay="1.1s">Timings</a></li>
 							<li><a href="#facilities" class="scroll wow fadeInRight" data-wow-delay="1.4s">Facilities</a></li>
-							<li><a href="#price" class="scroll wow fadeInRight" data-wow-delay="1.7s">Ticket Price</a></li>
+							<!-- <li><a href="#price" class="scroll wow fadeInRight" data-wow-delay="1.7s">Ticket Price</a></li> -->
 							<li><a href="#gallery" class="scroll wow fadeInRight" data-wow-delay="2.1s">Gallery</a></li>
-							<li><a href="#booking" class="scroll wow fadeInRight" data-wow-delay="2.4s">Online Booking</a></li>
+							<li><a href="#booking" class="scroll wow fadeInRight" data-wow-delay="2.4s" onclick="redirectForBooking()">Online Booking</a></li>
 							<li><a href="#contact" class="scroll wow fadeInRight" data-wow-delay="2.8s">Contact</a></li>
 							<li>
 								<a href="#login" class="scroll wow fadeInRight" data-wow-delay="3.2s" >Log Out</a></li>
@@ -177,10 +185,8 @@ $conn->close();
 			<div class="col-md-6 about-text">
 				<div class="about-text-padding-agile">
 				
-					<h4> Enjoy Here </h4>
-					<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-						standard dummy text ever since the 1500s, when an unknown printer took and scrambled it to make a type specimen book.
-						It has survived not only five centuries, but also the leap into electronic typesetting, remaining standard dummy text.
+				<h4> Enjoy Here </h4>
+					<p> Nimbus Island is not just another amusement park; it's a realm where dreams take flight and imaginations soar. Nestled on a picturesque island, Nimbus Island Amusement Park offers a world of thrilling adventures, enchanting fantasies, and unforgettable memories for visitors of all ages. With its diverse range of attractions, breathtaking landscapes, and a touch of magic, Nimbus Island is a place where the ordinary becomes extraordinary.
 					</p>
 				
 				</div>		
@@ -217,8 +223,7 @@ $conn->close();
 						<i class="icon1"> </i>
 					</div>
 					<h5>Food Court</h5>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-					   simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eversince </p>
+					<p>Enjoy a diverse culinary journey at our Food Court. Our chefs curate a delightful array of dishes from around the world, ensuring there's something to satisfy every palate. From mouthwatering entrees to delectable desserts, our food court is a feast for the senses.</p>
 				</div>
 				
 				<div class="col-xs-3 col-sm-3 col-md-6 col-lg-6 w3-info info2">
@@ -226,8 +231,7 @@ $conn->close();
 						<i class="icon2"> </i>
 					</div>
 					<h5>Spa Area</h5>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-					   simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eversince </p>
+					<p>Indulge in the ultimate relaxation at our Spa Area. Let your worries melt away as our skilled therapists pamper you with rejuvenating massages and beauty treatments. Reconnect with your inner self in a tranquil oasis of serenity. </p>
 				</div>
 			  <div class="clearfix"> </div>
 			</div>
@@ -238,8 +242,7 @@ $conn->close();
 						<i class="icon3"> </i>
 					</div>
 					<h5>Dormitory</h5>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-					   simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eversince </p>
+					<p>Our comfortable dormitory offers a cozy and affordable accommodation option for visitors. Rest easy in clean and well-maintained rooms, perfect for travelers on a budget. Whether you're traveling solo or with a group, our dormitory provides a convenient and friendly place to stay. </p>
 				</div>
 				
 				<div class="col-xs-3 col-sm-3 col-md-6 col-lg-6 w3-info info4">
@@ -247,8 +250,7 @@ $conn->close();
 						<i class="icon4"> </i>
 					</div>
 					<h5>Lockers</h5>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-					   simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eversince </p>
+					<p>Keep your belongings safe and secure in our lockers. We understand the importance of a worry-free visit, so we provide ample locker space for your convenience. Rest assured that your personal items are in good hands while you enjoy all that our establishment has to offer </p>
 				</div>
 			  <div class="clearfix"> </div>
 			</div>
@@ -259,104 +261,7 @@ $conn->close();
 
 
 <!-- Tickets Starts here -->
-<div class="tickets" id="price">
-	<div class="container">
-		<div class="tickets-padding-w3agile">
-		  <h3> Ticket Price </h3>
-			<!-- Tickets Tabs Starts -->
-				<div id="wrapper">
-					<div id="tabs4">
-						<ul>
-							<li><a href="#tabs-1" title="">Basic</a></li>
-							<li><a href="#tabs-2" title="">Children</a></li>
-							<li><a href="#tabs-3" title="">Special</a></li>
-						
-						</ul>
-						
-						<div id="tabs_container">
-						
-							<div id="tabs-1">  <!-- Tabs container Starts -->
-									<section class="grid1a">
-										<section class="para-a">
-											<h4>One Person</h4>
-											<h5> <span>$</span>65</h5>
-											<p>Fun as You LIke</p>
-											<p>Only place in the World</p>
-										</section>
-									</section>
-									
-									<section class="grid1b">
-										<h3>Basic Ticket</h3>
-										<section class="para">
-											<p> Entry Pass </p>
-											<p> All Roller Coasters  </p>
-											<p> Ferris Wheel  </p>
-											<p> Pendulum Rides Basic </p>
-											<p> Carousel - All Rides </p>
-											<p> Bumper Cars </p>
-											<p> skyRide </p>
-											<p> water slide  </p>
-										</section>
-									</section>
-							</div>
-
-							<div id="tabs-2">
-									<section class="grid2a">
-										<section class="para-a">
-											<h4>One Child</h4>
-											<h5> <span>$</span>40</h5>
-											<p>Fun as You LIke</p>
-											<p>Only place in the World</p>
-										</section>
-									</section>
-									
-									<section class="grid2b">
-										<h3>Children Ticket</h3>
-										<section class="para">
-											<p> Entry Pass </p>
-											<p> All Roller Coasters  </p>
-											<p> Ferris Wheel  </p>
-											<p> Pendulum Rides Basic </p>
-											<p> Carousel  </p>
-											<p> Bumper Cars </p>
-											<p> skyRide </p>
-											<p> water slide </p>
-										</section>
-									</section>
-							</div>
-
-							<div id="tabs-3" >
-									<section class="grid3a">
-										<section class="para-a">
-											<h4>Four Persons</h4>
-											<h5> <span>$</span>199</h5>
-											<p>Fun as You LIke</p>
-											<p>Only place in the World</p>
-										</section>
-									</section>
-									
-									<section class="grid3b">
-										<h3>Special Ticket</h3>
-										<section class="para">
-											<p> Entry Pass </p>
-											<p> All Roller Coasters  </p>
-											<p> Ferris Wheel  </p>
-											<p> Pendulum Rides Basic </p>
-											<p> Carousel - All Rides </p>
-											<p> Bumper Cars </p>
-											<p> skyRide - One Way </p>
-											<p> water slide - only Two time </p>
-										</section>
-									</section>
-							</div>
-
-						</div><!--End tabs container-->
-					</div><!--End tabs-->
-				</div>
-			<!-- Ticket Tab Ends -->	
-		</div>
-	</div>
-</div> <!-- Tickets Ends -->
+<!-- / Tickets Ends -->
 	
 <!-- Gallery start -->
 <div id="gallery" class="gallery">
@@ -364,7 +269,7 @@ $conn->close();
 		<div class="gallery-padding">
 			<div class="gallery-w3l-title">
 				<h3>Photo Gallery</h3>
-				<p>Duis euismod massa ut sem fringilla blandit. Proin vel enim nec ipsum finibus. </p>
+				<p> </p>
 			</div>
 			
 			<div class="gallery_gds">
@@ -451,7 +356,7 @@ $conn->close();
 	
 
 <!-- Ticket Booking -->
-<div class="booking" id="booking">
+<!-- <div class="booking" id="booking">
 	<div class="container">
 		<div class="booking-padding">
 		  <h3>Online Ticket Booking </h3>
@@ -517,7 +422,7 @@ $conn->close();
 			</div>
 		</div>
 	</div>
-</div>  <!-- Ticket Booking Ends -->
+</div>  Ticket Booking Ends -->
 
 
 <!-- Contact Starts -->
@@ -526,13 +431,13 @@ $conn->close();
 		<div class="contact-padding">
 			<h3> Contact Us</h3>
 			<div>
-				<div class="col-md-4 address">
+			<div class="col-md-4 address">
 					<h4>Address</h4>
 					<address>
-						Lorem Ipsum<br>
-						HTML5 Buildings,<br>
-						Doctorville,<br>
-						Great Britain<br>
+					1234 Elm Street<br>
+					Springfield, Anytown<br>
+						
+					United States<br>
 						(123) 456-7890<br>
 						<span>Phone : +123 4567 8900</span>
 					</address>
@@ -556,7 +461,7 @@ $conn->close();
 			</div>
 			
 			<div class="footer">
-				<p>© 2016 Joy AmusementPark. All Rights Reserved | Design by  <a href="https://w3layouts.com/" target="_blank"> w3layouts </a></p>
+			<p>© 2023 Nimbus Island Amusement Park. All Rights Reserved | Design by John Prasad </a></p>
 			</div>
 
 		</div>
