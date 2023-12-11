@@ -252,6 +252,28 @@ function updateTotalPrice() {
 updateTotalPrice();
 
 </script>
+<script>
+  document.getElementById('checkout-form').addEventListener('submit', function (event) {
+    // Prevent the form from being submitted by default
+    event.preventDefault();
+
+    // Get the form elements by their IDs
+    var username = document.getElementById('username').value;
+    var fullname = document.getElementById('fname').value;
+    var email = document.getElementById('email').value;
+    var bookdate = document.getElementById('bookdate').value;
+
+    // Check if any of the fields are empty
+    if (username.trim() === '' || fullname.trim() === '' || email.trim() === '' || bookdate.trim() === '') {
+        alert('Please fill in all the required fields.');
+        return;
+    }
+
+    // If all fields have values, submit the form
+    document.getElementById('checkout-form').submit();
+});
+
+  </script>
 
 
 </body>

@@ -978,102 +978,97 @@
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
                   // Replace this sample data with your actual data
-                  const ticketData = [
-                    {
-                      ticket_cat: 'basic',
-                      book_date: '2023-12-10',
+                  fetch('get_chart_data.php')
+    .then(response => response.json())
+    .then(data => {
+        // Map and filter the fetched data to match the desired format
+        const ticketData = data.map(item => ({
+            ticket_cat: item.ticket_cat,
+            book_date: item.book_date
+        })).filter(item => item.book_date !== '1970-01-01'); // Filter out any undesired data
+         console.log("data is");
+        console.log(ticketData);
+
+        // Rest of your JavaScript code for chart rendering
+        const categories = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const basicCounts = Array(12).fill(0);
+        const fastCounts = Array(12).fill(0);
+        const specialCounts = Array(12).fill(0);
+
+        // Group the data by month and ticket category
+        ticketData.forEach((dataPoint) => {
+            const month = new Date(dataPoint.book_date).getMonth();
+            const category = dataPoint.ticket_cat;
+
+            if (category === 'basic') {
+                basicCounts[month]++;
+            } else if (category === 'fast') {
+                fastCounts[month]++;
+            } else if (category === 'special') {
+                specialCounts[month]++;
+            }
+        });
+
+        new ApexCharts(document.querySelector("#columnChart"), {
+            series: [
+                {
+                    name: 'basic',
+                    data: basicCounts,
+                },
+                {
+                    name: 'fast',
+                    data: fastCounts,
+                },
+                {
+                    name: 'special',
+                    data: specialCounts,
+                }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent'],
+            },
+            xaxis: {
+                categories: categories,
+            },
+            yaxis: {
+                title: {
+                    text: 'Number of Tickets Sold',
+                },
+            },
+            fill: {
+                opacity: 1,
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val;
                     },
-                    {
-                      ticket_cat: 'fast',
-                      book_date: '2023-11-05',
-                    },
-                    {
-                      ticket_cat: 'special',
-                      book_date: '2023-11-23',
-                    },
-                    {
-                      ticket_cat: 'special',
-                      book_date: '2023-11-23',
-                    },
-                    // Add more data points here
-                  ];
-              
-                  const categories = [
-                    'January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
-                  ];
-              
-                  const basicCounts = Array(12).fill(0);
-                  const fastCounts = Array(12).fill(0);
-                  const specialCounts = Array(12).fill(0);
-              
-                  // Group the data by month and ticket category
-                  ticketData.forEach((dataPoint) => {
-                    const month = new Date(dataPoint.book_date).getMonth();
-                    const category = dataPoint.ticket_cat;
-              
-                    if (category === 'basic') {
-                      basicCounts[month]++;
-                    } else if (category === 'fast') {
-                      fastCounts[month]++;
-                    } else if (category === 'special') {
-                      specialCounts[month]++;
-                    }
-                  });
-              
-                  new ApexCharts(document.querySelector("#columnChart"), {
-                    series: [
-                      {
-                        name: 'basic',
-                        data: basicCounts,
-                      },
-                      {
-                        name: 'fast',
-                        data: fastCounts,
-                      },
-                      {
-                        name: 'special',
-                        data: specialCounts,
-                      }
-                    ],
-                    chart: {
-                      type: 'bar',
-                      height: 350,
-                    },
-                    plotOptions: {
-                      bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        endingShape: 'rounded',
-                      },
-                    },
-                    dataLabels: {
-                      enabled: false,
-                    },
-                    stroke: {
-                      show: true,
-                      width: 2,
-                      colors: ['transparent'],
-                    },
-                    xaxis: {
-                      categories: categories,
-                    },
-                    yaxis: {
-                      title: {
-                        text: 'Number of Tickets Sold',
-                      },
-                    },
-                    fill: {
-                      opacity: 1,
-                    },
-                    tooltip: {
-                      y: {
-                        formatter: function (val) {
-                          return val;
-                        },
-                      },
-                    },
-                  }).render();
+                },
+            },
+        }).render();
+    })
+    // .catch(error => console.error(error));
+
                 });
               </script>
               

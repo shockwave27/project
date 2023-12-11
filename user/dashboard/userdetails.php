@@ -146,7 +146,7 @@ body {
 <div class="container-xl px-4 mt-4">
     <nav class="nav nav-borders">
         <a class="nav-link active ms-0" href="userprofile.php" target="__blank">Profile</a>
-        <a class="nav-link" href="profile_billing_page.html" target="__blank">Billing</a>
+        <a class="nav-link" href="ticket/profile_billing_page.php" target="__blank">Billing</a>
         <a class="nav-link" href="security/profile_security_page.php" target="__blank">Security</a>
         <a class="nav-link" href="profile_security_page.html" target="__blank">Notifications</a>
     </nav>

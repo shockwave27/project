@@ -320,6 +320,7 @@ function bookTicket(ticketData, ticketType) {
                         alert(response);
                         console.log(response);
                         // location.reload(); // This line reloads the page
+						window.location.href = '../checkout.php'; 
                     },
                     error: function (xhr, status, error) {
                         // Handle errors, if any
