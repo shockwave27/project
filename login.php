@@ -25,25 +25,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch user data from the database
         $userData = $loginResult->fetch_assoc();
 
-        
         // Store user data in session
         $_SESSION['user_id'] = $userData['user_id'];
         $_SESSION['user_name'] = $userData['user_name'];
         $_SESSION['user_email'] = $userData['user_email'];
-        
-        header("Location:user/index.php");
-        
-        echo "Login successful!";
-        // You can redirect the user to the desired page after successful login
-        // For example: header("Location: dashboard.php");
+        $_SESSION['user_type'] = $userData['user_type']; // Add user_type to the session
+
+        // Check user_type and redirect accordingly
+        if ($_SESSION['user_type'] == 'admin') {
+            header("Location: admin/index.php");
+        } else {
+            header("Location: user/index.php");
+        }
+
         exit;  
     } else {
         echo '<script>alert("Invalid login credentials.");</script>';
         echo '<script>window.location.href = "index.php";</script>';
     }
-    
 }
 
 $conn->close();
 ?>
-

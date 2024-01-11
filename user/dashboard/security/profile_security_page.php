@@ -201,8 +201,11 @@ color:#69707a;
             <div class="card-header">Submit a Complaint</div>
             <div class="card-body">
                 <!-- Complaint form -->
-                <form id="complaintForm">
+                <form id="complaintForm" action="process_complaint.php" method="post">
                     <div class="mb-3">
+
+                    <input type="hidden" name="userEmail" value="<?php echo $userEmail; ?>">
+                        <input type="hidden" name="userID" value="<?php echo $userID; ?>"> 
                         <label for="complaintSubject" class="form-label">Subject</label>
                         <input type="text" class="form-control" id="complaintSubject" name="complaintSubject" required>
                     </div>

@@ -153,7 +153,8 @@ $conn->close();
 							<li><a href="#booking" class="scroll wow fadeInRight" data-wow-delay="2.4s" onclick="redirectForBooking()">Online Booking</a></li>
 							<li><a href="#contact" class="scroll wow fadeInRight" data-wow-delay="2.8s">Contact</a></li>
 							<li>
-								<a href="#login" class="scroll wow fadeInRight" data-wow-delay="3.2s" >Log Out</a></li>
+    <a href="#" class="scroll wow fadeInRight" data-wow-delay="3.2s" onclick="logout()">Log Out</a>
+</li>
 							
 						</ul>
 						</ul>
@@ -484,6 +485,20 @@ $conn->close();
         });
     </script> 
 	
+	<script>
+    function logout() {
+        // Make an AJAX request to the logout.php script
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'logout.php', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Redirect to the login page or any other desired page after successful logout
+                window.location.href = '../index.php'; // Adjust the URL as needed
+            }
+        };
+        xhr.send();
+    }
+</script>
 	<!-- swipe box js -->
 	<script src="js/jquery.swipebox.min.js"></script> 
 	<script type="text/javascript">
